@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Zähler">
+<meta name="theme-color" content="#F1F3F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#101614" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Zähler</title>
+<style>
+:root{--bg:#F1F3F2;--card:#fff;--ink:#14211F;--mut:#566562;--line:#E1E6E4;--seg:#E1E6E4;--c1:#8A5A00;--c2:#B23A0B;--c3:#9B1C1C;--c4:#1D5FA8;--inv:#fff}
+@media(prefers-color-scheme:dark){:root{--bg:#101614;--card:#1A2320;--ink:#EEF3F1;--mut:#9AABA6;--line:#2B3733;--seg:#2B3733;--c1:#E0A63A;--c2:#F0875A;--c3:#F07A7A;--c4:#6FA8EB;--inv:#101614}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px -apple-system,"SF Pro Text",system-ui,sans-serif;-webkit-text-size-adjust:100%}
+button,input{font:inherit;color:inherit}
+#app{padding:calc(env(safe-area-inset-top) + 20px) 16px calc(110px + env(safe-area-inset-bottom));max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+h1{margin:0 4px;font-size:30px}
+.sub{font-size:13px;color:var(--mut)}
+.card{background:var(--card);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;border:0;text-align:left;width:100%}
+.row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.lab{font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.grid{display:grid;gap:8px 12px}
+.big{font-size:22px;font-weight:700}.big small{font-size:14px;font-weight:400}
+.stats{display:flex;gap:12px;border-top:1px solid var(--line);padding-top:10px}.stats>div{flex:1}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding:0 8px env(safe-area-inset-bottom)}
+nav button{flex:1;min-height:56px;background:none;border:0;border-top:3px solid transparent;font-size:13px;color:var(--mut)}
+nav button.on{font-weight:700;color:var(--ink);border-top-color:var(--ink)}
+.seg{display:flex;background:var(--seg);border-radius:10px;padding:3px}
+.seg button{flex:1;min-height:40px;border:0;border-radius:8px;background:none;font-size:14px;color:var(--mut)}
+.seg button.on{background:var(--card);font-weight:700;color:var(--ink)}
+label.f{display:flex;justify-content:space-between;align-items:center;background:var(--card);border-radius:12px;padding:0 16px;min-height:52px}
+label.f input{border:0;background:none;text-align:right;width:150px;min-height:44px;outline:0}
+.btn{min-height:52px;border:0;border-radius:12px;background:var(--ink);color:var(--inv);font-weight:700;font-size:17px;width:100%}
+.btn.alt{background:var(--card);color:var(--ink);font-weight:600}
+.bars{display:flex;gap:8px;align-items:flex-end}
+.bc{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+.bv{font-size:11px;color:var(--mut)}
+.bb{height:130px;width:100%;display:flex;flex-direction:column;justify-content:flex-end}
+.leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px}
+.li{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--line);gap:8px}
+.li button{background:none;border:0;color:var(--mut);font-size:20px;min-width:44px;min-height:44px}
+#toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--inv);padding:10px 18px;border-radius:20px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+#toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<nav><button data-a="tab" data-v="0">Übersicht</button><button data-a="tab" data-v="1">Erfassen</button><button data-a="tab" data-v="2">Verlauf</button><button data-a="tab" data-v="3">Backup</button></nav>
+<input type="file" id="file" accept=".json,application/json" hidden>
+<div id="toast"></div>
+<script>
+const M=[
+{id:'st',n:'Strom Tag',s:'Tag',f:'strom',v:'strom',u:'kWh',d:0,cd:0},
+{id:'sn',n:'Strom Nacht',s:'Nacht',f:'strom',v:'strom',u:'kWh',d:0,cd:0},
+...['Bad','Toilette','Wohnzimmer','Esszimmer','Küche','Schlafzimmer'].map((r,i)=>({id:'h'+(i+1),n:'Heizung '+r,s:r,f:'heizung',v:'heizung',u:'Einh.',d:0,cd:0})),
+{id:'ww',n:'Warmwasser Küche',s:'Warmwasser Küche',f:'wasser',v:'warm',u:'m³',d:3,cd:2},
+{id:'kt',n:'Kaltwasser Toilette',s:'Kaltwasser Toilette',f:'wasser',v:'kalt',u:'m³',d:3,cd:2},
+{id:'kk',n:'Kaltwasser Küche',s:'Kaltwasser Küche',f:'wasser',v:'kalt',u:'m³',d:3,cd:2}];
+const V=[{k:'strom',n:'Strom',c:'--c1',t:'Strom'},{k:'heizung',n:'Heizung',c:'--c2',t:'Heizung'},{k:'warm',n:'Warmwasser',c:'--c3',t:'Warmw.'},{k:'kalt',n:'Kaltwasser',c:'--c4',t:'Kaltw.'}];
+const F=[{k:'strom',n:'Strom'},{k:'heizung',n:'Heizung'},{k:'wasser',n:'Wasser'}];
+const PAL=['#14211F','#B7791F','#1D5FA8','#B23A0B','#4B7F52','#8A6FB3'];
+const $=s=>document.querySelector(s);
+const fm=(v,d)=>v.toLocaleString('de-DE',{minimumFractionDigits:d,maximumFractionDigits:d});
+const today=()=>{const t=new Date();return new Date(t-t.getTimezoneOffset()*6e4).toISOString().slice(0,10)};
+const dn=s=>{const [y,m,d]=s.split('-').map(Number);return Date.UTC(y,m-1,d)/864e5};
+const dl=s=>s.split('-').reverse().join('.');
+let db,R=[],tab=0,fc='strom',vc='strom',vm='m',fd=today();
+const idb=()=>new Promise((ok,no)=>{const q=indexedDB.open('zaehler',1);q.onupgradeneeded=()=>q.result.createObjectStore('r',{keyPath:'id',autoIncrement:true});q.onsuccess=()=>ok(q.result);q.onerror=()=>no(q.error)});
+const st=m=>db.transaction('r',m).objectStore('r');
+const pr=r=>new Promise((ok,no)=>{r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)});
+const load=async()=>{R=await pr(st('readonly').getAll())};
+const ser=id=>R.filter(x=>x.m===id).sort((a,b)=>a.d<b.d?-1:a.d>b.d?1:0);
+const last=id=>{const s=ser(id);return s[s.length-1]};
+// Verbrauch im Zeitraum [a,b) (Tagesnummern), gleichmäßig zwischen Ablesungen verteilt
+function use(id,a,b){const s=ser(id);let t=0,ok=false;for(let i=1;i<s.length;i++){const x=dn(s[i-1].d),y=dn(s[i].d),span=y-x;if(span<=0||s[i].v<s[i-1].v)continue;ok=true;const ov=Math.min(b,y)-Math.max(a,x);if(ov>0)t+=(s[i].v-s[i-1].v)/span*ov}return ok?t:null}
+const grp=(k,a,b)=>{let t=0,ok=false;M.filter(m=>m.v===k).forEach(m=>{const u=use(m.id,a,b);if(u!==null){t+=u;ok=true}});return ok?t:null};
+const D=(y,m)=>Date.UTC(y,m,1)/864e5;
+const now=new Date(),Y=now.getFullYear(),Mo=now.getMonth();
+const mon=(y,m)=>new Date(y,m,1).toLocaleDateString('de-DE',{month:'short'});
+const unit=k=>M.find(m=>m.v===k||m.f===k).u,cdec=k=>M.find(m=>m.v===k).cd;
+const sv=(v,k)=>v===null?'–':'+'+fm(v,cdec(k))+' '+unit(k);
+function vHome(){return `<div><div class="sub">${now.toLocaleDateString('de-DE',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div><h1 style="margin:2px 0 0">Zähler</h1></div>`+V.map(g=>{
+const ms=M.filter(m=>m.v===g.k),ld=ms.map(m=>last(m.id)).filter(Boolean).map(x=>x.d).sort().pop();
+const cols=Math.min(ms.length,3),fk=ms[0].f;
+return `<button class="card" data-a="go" data-v="${fk}"><div class="row"><span class="lab" style="color:var(${g.c})">${g.n}</span><span class="sub">${ld?'Ablesung '+dl(ld):'Noch keine Ablesung'}</span></div>
+<div class="grid" style="grid-template-columns:repeat(${cols},1fr)">${ms.map(m=>{const l=last(m.id);return `<div><div class="sub">${m.s}</div>${ms.length<=3?`<div class="big">${l?fm(l.v,m.d):'–'} <small>${m.u}</small></div>`:`<b>${l?fm(l.v,m.d):'–'}</b>`}</div>`}).join('')}</div>
+<div class="stats"><div><div class="sub">${mon(Y,Mo)} (bis heute)</div><b>${sv(grp(g.k,D(Y,Mo),D(Y,Mo+1)),g.k)}</b></div><div><div class="sub">Jahr ${Y}</div><b>${sv(grp(g.k,D(Y,0),D(Y+1,0)),g.k)}</b></div></div></button>`}).join('')}
+function vForm(){const ms=M.filter(m=>m.f===fc);return `<h1>Neue Ablesung</h1>
+<div class="seg">${F.map(f=>`<button class="${f.k===fc?'on':''}" data-a="fc" data-v="${f.k}">${f.n}</button>`).join('')}</div>
+<label class="f">Datum<input type="date" id="date" value="${fd}" max="${today()}"></label>
+<div class="sub" style="margin:4px 4px 0">Zählerstand eintragen, leere Felder werden übersprungen.</div>
+${ms.map(m=>{const l=last(m.id);return `<label class="f">${m.s}<input inputmode="decimal" autocomplete="off" data-m="${m.id}" placeholder="${l?'zuletzt '+fm(l.v,m.d):'Zählerstand'}"></label>`}).join('')}
+<button class="btn" data-a="save">Speichern</button>`}
+function vHist(){const ms=M.filter(m=>m.v===vc),g=V.find(x=>x.k===vc);
+const P=[];if(vm==='m')for(let i=5;i>=0;i--){const d=new Date(Y,Mo-i,1),y=d.getFullYear(),m=d.getMonth();P.push({l:mon(y,m),a:D(y,m),b:D(y,m+1)})}else for(let i=3;i>=0;i--)P.push({l:''+(Y-i),a:D(Y-i,0),b:D(Y-i+1,0)});
+const data=P.map(p=>({...p,v:ms.map(m=>use(m.id,p.a,p.b)||0),t:grp(vc,p.a,p.b)}));
+const mx=Math.max(1e-9,...data.map(d=>d.v.reduce((a,b)=>a+b,0)));
+const rows=R.filter(x=>ms.some(m=>m.id===x.m)).sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:0).slice(0,25);
+return `<h1>Verlauf</h1><div class="seg">${V.map(x=>`<button class="${x.k===vc?'on':''}" data-a="vc" data-v="${x.k}">${x.t}</button>`).join('')}</div>
+<div class="seg"><button class="${vm==='m'?'on':''}" data-a="vm" data-v="m">Monate</button><button class="${vm==='y'?'on':''}" data-a="vm" data-v="y">Jahre</button></div>
+<section class="card"><div class="row"><span class="lab" style="color:var(${g.c})">${g.n}</span><span class="sub">Verbrauch in ${unit(vc)}</span></div>
+<div class="bars">${data.map(d=>`<div class="bc"><div class="bv">${d.t===null?'–':fm(d.t,cdec(vc))}</div><div class="bb">${d.v.map((v,i)=>`<div style="height:${v/mx*100}%;background:${PAL[i%6]}"></div>`).join('')}</div><span class="sub">${d.l}</span></div>`).join('')}</div>
+<div class="leg">${ms.length>1?ms.map((m,i)=>`<span><span style="color:${PAL[i%6]}">■</span> ${m.s}</span>`).join(''):''}</div></section>
+<section class="card" style="gap:0"><div class="sub" style="padding-bottom:8px">Letzte Ablesungen</div>${rows.length?rows.map(r=>{const m=M.find(x=>x.id===r.m);return `<div class="li"><span>${dl(r.d)}</span><span style="flex:1;text-align:right">${ms.length>1?m.s+' · ':''}<b>${fm(r.v,m.d)}</b> ${m.u}</span><button data-a="del" data-v="${r.id}" aria-label="Ablesung löschen">×</button></div>`}).join(''):'<div class="sub">Noch keine Ablesungen. Trage unter „Erfassen“ den ersten Zählerstand ein.</div>'}</section>`}
+function vBak(){const lb=localStorage.getItem('lb');const old=!lb||(Date.now()-new Date(lb))>30*864e5;
+return `<h1>Backup</h1><section class="card"><div><b>${R.length}</b> Ablesungen gespeichert</div><div class="sub">Letztes Backup: ${lb?dl(lb.slice(0,10)):'noch nie'}${old?' – Zeit für eine Sicherung.':''}</div><div class="sub">Die Daten liegen nur auf diesem iPhone. Speichere die Sicherung über das Teilen-Menü in „Dateien“ (iCloud Drive).</div></section>
+<button class="btn" data-a="expJ">Sicherung exportieren (JSON)</button><button class="btn alt" data-a="expC">Als CSV exportieren</button><button class="btn alt" data-a="imp">Sicherung importieren</button>`}
+function render(){$('#app').innerHTML=[vHome,vForm,vHist,vBak][tab]();document.querySelectorAll('nav button').forEach((b,i)=>b.classList.toggle('on',i===tab))}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2200)}
+const num=s=>{s=s.trim().replace(/\s/g,'');if(s.includes(','))s=s.replace(/\./g,'').replace(',','.');const n=Number(s);return s&&isFinite(n)?n:NaN};
+async function save(){const d=$('#date').value;fd=d;if(!d)return toast('Bitte ein Datum wählen');let n=0;
+for(const i of document.querySelectorAll('input[data-m]')){if(!i.value.trim())continue;const m=M.find(x=>x.id===i.dataset.m),v=num(i.value);
+if(isNaN(v)||v<0)return toast('Ungültiger Wert bei '+m.s);
+const prev=ser(m.id).filter(x=>x.d<d).pop();
+if(prev&&v<prev.v&&!confirm(m.s+': Der Wert ist niedriger als der Stand vom '+dl(prev.d)+' ('+fm(prev.v,m.d)+'). Trotzdem speichern?'))return;
+for(const o of R.filter(x=>x.m===m.id&&x.d===d))await pr(st('readwrite').delete(o.id));
+await pr(st('readwrite').add({m:m.id,d,v}));n++}
+if(!n)return toast('Keine Werte eingetragen');await load();render();toast(n+' Ablesung'+(n>1?'en':'')+' gespeichert')}
+async function out(name,type,text){const f=new File([text],name,{type});if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]});return true}catch(e){if(e.name==='AbortError')return false}}const a=document.createElement('a');a.href=URL.createObjectURL(f);a.download=name;a.click();return true}
+const stamp=()=>new Date().toISOString();
+const A={
+tab:v=>{tab=+v;render();scrollTo(0,0)},
+go:v=>{fc=v;A.tab(1)},fc:v=>{fc=v;render()},vc:v=>{vc=v;render()},vm:v=>{vm=v;render()},
+save,
+async del(v){const r=R.find(x=>x.id==v);if(r&&confirm('Ablesung vom '+dl(r.d)+' löschen?')){await pr(st('readwrite').delete(+v));await load();render()}},
+async expJ(){if(await out('zaehler-backup-'+today()+'.json','application/json',JSON.stringify({v:1,exported:stamp(),readings:R.map(({m,d,v})=>({m,d,v}))},null,1))){localStorage.setItem('lb',stamp());render()}},
+async expC(){const l=['Datum;Zähler;Wert',...[...R].sort((a,b)=>a.d<b.d?-1:1).map(r=>{const m=M.find(x=>x.id===r.m);return r.d+';'+m.n+';'+String(r.v).replace('.',',')})];await out('zaehler-'+today()+'.csv','text/csv','\ufeff'+l.join('\n'))},
+imp:()=>$('#file').click()};
+document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(t)A[t.dataset.a](t.dataset.v)});
+document.addEventListener('input',e=>{if(e.target.id==='date')fd=e.target.value});
+$('#file').addEventListener('change',async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
+try{const j=JSON.parse(await f.text()),ok=(j.readings||[]).filter(r=>M.some(m=>m.id===r.m)&&/^\d{4}-\d{2}-\d{2}$/.test(r.d)&&isFinite(r.v));
+if(!ok.length)throw 0;if(!confirm(ok.length+' Ablesungen importieren? Bestehende Einträge mit gleichem Zähler und Datum werden ersetzt.'))return;
+for(const r of ok){for(const o of R.filter(x=>x.m===r.m&&x.d===r.d))await pr(st('readwrite').delete(o.id));await pr(st('readwrite').add({m:r.m,d:r.d,v:+r.v}));await load()}
+render();toast(ok.length+' Ablesungen importiert')}catch(x){toast('Datei konnte nicht gelesen werden')}});
+(async()=>{try{db=await idb();await load()}catch(e){alert('Speicher nicht verfügbar. Bitte nicht im privaten Modus öffnen.')}
+render();if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js')})();
+</script>
+</body>
+</html>
