@@ -19,6 +19,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px -apple-system,"SF 
 button,input{font:inherit;color:inherit}
 #app{padding:calc(env(safe-area-inset-top) + 20px) 16px calc(110px + env(safe-area-inset-bottom));max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
 h1{margin:0 4px;font-size:30px}
+h2{margin:14px 4px 0;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mut)}
 .sub{font-size:13px;color:var(--mut)}
 .card{background:var(--card);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;border:0;text-align:left;width:100%}
 .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
@@ -26,33 +27,46 @@ h1{margin:0 4px;font-size:30px}
 .grid{display:grid;gap:8px 12px}
 .big{font-size:22px;font-weight:700}.big small{font-size:14px;font-weight:400}
 .stats{display:flex;gap:12px;border-top:1px solid var(--line);padding-top:10px}.stats>div{flex:1}
+.cmp{font-size:12px;color:var(--mut);margin-top:2px}
 nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding:0 8px env(safe-area-inset-bottom)}
 nav button{flex:1;min-height:56px;background:none;border:0;border-top:3px solid transparent;font-size:13px;color:var(--mut)}
 nav button.on{font-weight:700;color:var(--ink);border-top-color:var(--ink)}
+nav button.dot::after{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--c2);margin-left:4px;vertical-align:middle}
 .seg{display:flex;background:var(--seg);border-radius:10px;padding:3px}
 .seg button{flex:1;min-height:40px;border:0;border-radius:8px;background:none;font-size:14px;color:var(--mut)}
 .seg button.on{background:var(--card);font-weight:700;color:var(--ink)}
-label.f{display:flex;justify-content:space-between;align-items:center;background:var(--card);border-radius:12px;padding:0 16px;min-height:52px}
+label.f{display:flex;justify-content:space-between;align-items:center;background:var(--card);border-radius:12px;padding:0 16px;min-height:52px;gap:8px}
 label.f input{border:0;background:none;text-align:right;width:150px;min-height:44px;outline:0}
 .btn{min-height:52px;border:0;border-radius:12px;background:var(--ink);color:var(--inv);font-weight:700;font-size:17px;width:100%}
 .btn.alt{background:var(--card);color:var(--ink);font-weight:600}
+.ban{background:var(--card);border-radius:16px;padding:12px 12px 12px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-left:4px solid var(--c2)}
+.ban button{background:var(--ink);color:var(--inv);border:0;border-radius:10px;min-height:44px;padding:0 14px;font-weight:600;white-space:nowrap}
 .bars{display:flex;gap:8px;align-items:flex-end}
 .bc{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
 .bv{font-size:11px;color:var(--mut)}
+.vj{font-size:10px;color:var(--mut);margin-top:-4px}
 .bb{height:130px;width:100%;display:flex;flex-direction:column;justify-content:flex-end}
 .leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px}
 .li{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--line);gap:8px}
 .li button{background:none;border:0;color:var(--mut);font-size:20px;min-width:44px;min-height:44px}
-#toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--inv);padding:10px 18px;border-radius:20px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+.mr{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line)}
+.mr .nm{flex:1;min-width:0;font-size:15px}
+.mr input{width:96px;border:1px solid var(--line);border-radius:8px;background:var(--bg);min-height:40px;padding:0 8px;text-align:right;outline:0}
+.mr input.fk{width:62px}
+.sbtn{background:var(--seg);border:0;border-radius:8px;min-height:40px;padding:0 10px;font-size:14px}
+.swf{background:var(--bg);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;margin:0 0 10px}
+.two{display:flex;gap:8px}
+#toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--inv);padding:10px 18px;border-radius:20px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
 #toast.on{opacity:1}
 </style>
 </head>
 <body>
 <div id="app"></div>
-<nav><button data-a="tab" data-v="0">Übersicht</button><button data-a="tab" data-v="1">Erfassen</button><button data-a="tab" data-v="2">Verlauf</button><button data-a="tab" data-v="3">Backup</button></nav>
+<nav><button data-a="tab" data-v="0">Übersicht</button><button data-a="tab" data-v="1">Erfassen</button><button data-a="tab" data-v="2">Verlauf</button><button data-a="tab" data-v="3">Einstellungen</button></nav>
 <input type="file" id="file" accept=".json,application/json" hidden>
 <div id="toast"></div>
 <script>
+const VERSION='2';
 const M=[
 {id:'st',n:'Strom Tag',s:'Tag',f:'strom',v:'strom',u:'kWh',d:0,cd:0},
 {id:'sn',n:'Strom Nacht',s:'Nacht',f:'strom',v:'strom',u:'kWh',d:0,cd:0},
@@ -61,85 +75,202 @@ const M=[
 {id:'kt',n:'Kaltwasser Toilette',s:'Kaltwasser Toilette',f:'wasser',v:'kalt',u:'m³',d:3,cd:2},
 {id:'kk',n:'Kaltwasser Küche',s:'Kaltwasser Küche',f:'wasser',v:'kalt',u:'m³',d:3,cd:2}];
 const V=[{k:'strom',n:'Strom',c:'--c1',t:'Strom'},{k:'heizung',n:'Heizung',c:'--c2',t:'Heizung'},{k:'warm',n:'Warmwasser',c:'--c3',t:'Warmw.'},{k:'kalt',n:'Kaltwasser',c:'--c4',t:'Kaltw.'}];
-const F=[{k:'strom',n:'Strom'},{k:'heizung',n:'Heizung'},{k:'wasser',n:'Wasser'}];
+const F=[{k:'strom',n:'Strom',c:'--c1'},{k:'heizung',n:'Heizung',c:'--c2'},{k:'wasser',n:'Wasser',c:'--c4'}];
 const PAL=['#14211F','#B7791F','#1D5FA8','#B23A0B','#4B7F52','#8A6FB3'];
+const DEF={k:'s',einzug:'',abrWH:'01-01',abrS:'01-01',iv:14,nr:{},fak:{},sw:[]};
 const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fm=(v,d)=>v.toLocaleString('de-DE',{minimumFractionDigits:d,maximumFractionDigits:d});
 const today=()=>{const t=new Date();return new Date(t-t.getTimezoneOffset()*6e4).toISOString().slice(0,10)};
 const dn=s=>{const [y,m,d]=s.split('-').map(Number);return Date.UTC(y,m-1,d)/864e5};
+const ds=n=>new Date(n*864e5).toISOString().slice(0,10);
 const dl=s=>s.split('-').reverse().join('.');
-let db,R=[],tab=0,fc='strom',vc='strom',vm='m',fd=today();
-const idb=()=>new Promise((ok,no)=>{const q=indexedDB.open('zaehler',1);q.onupgradeneeded=()=>q.result.createObjectStore('r',{keyPath:'id',autoIncrement:true});q.onsuccess=()=>ok(q.result);q.onerror=()=>no(q.error)});
-const st=m=>db.transaction('r',m).objectStore('r');
+const dsh=n=>{const s=dl(ds(n));return s.slice(0,6)+s.slice(8)};
+const TD=()=>dn(today());
+const mdn=(y,md)=>{let [m,d]=md.split('-').map(Number);if(m===2&&d===29)d=28;return Date.UTC(y,m-1,d)/864e5};
+let db,R=[],S={...DEF},MEMO={},tab=0,fc='strom',vc='strom',vm='m',fd=today(),so=null;
+let now=new Date(),Y=now.getFullYear(),Mo=now.getMonth();
+
+/* ---------- Speicher ---------- */
+const idb=()=>new Promise((ok,no)=>{const q=indexedDB.open('zaehler',2);
+q.onupgradeneeded=()=>{const d=q.result;if(!d.objectStoreNames.contains('r'))d.createObjectStore('r',{keyPath:'id',autoIncrement:true});if(!d.objectStoreNames.contains('cfg'))d.createObjectStore('cfg',{keyPath:'k'})};
+q.onblocked=()=>alert('Bitte die App einmal komplett schließen und neu öffnen.');
+q.onsuccess=()=>ok(q.result);q.onerror=()=>no(q.error)});
+const st=(m,s='r')=>db.transaction(s,m).objectStore(s);
 const pr=r=>new Promise((ok,no)=>{r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)});
-const load=async()=>{R=await pr(st('readonly').getAll())};
+const isD=x=>typeof x==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(x);
+function fixS(s){s={...DEF,...(s&&typeof s==='object'?s:{})};s.k='s';
+s.nr=s.nr&&typeof s.nr==='object'?{...s.nr}:{};s.fak=s.fak&&typeof s.fak==='object'?{...s.fak}:{};
+s.sw=Array.isArray(s.sw)?s.sw.filter(x=>x&&M.some(m=>m.id===x.m)&&isD(x.d)&&isFinite(x.a)&&isFinite(x.n)).map(x=>({...x,id:String(x.id||Math.random()),a:+x.a,n:+x.n})):[];
+if(!/^\d\d-\d\d$/.test(s.abrWH))s.abrWH='01-01';if(!/^\d\d-\d\d$/.test(s.abrS))s.abrS='01-01';
+s.iv=[0,14,30].includes(+s.iv)?+s.iv:14;if(!isD(s.einzug))s.einzug='';return s}
+const load=async()=>{R=await pr(st('readonly').getAll());S=fixS(await pr(st('readonly','cfg').get('s')));MEMO={}};
+const saveS=async()=>{await pr(st('readwrite','cfg').put(S));MEMO={}};
+
+/* ---------- Rechenlogik ---------- */
+// Zeitpunkt einer Ablesung = Ende des Ablesetags. Der Stichtagswert vom 31.12. liegt damit genau auf dem Nullungszeitpunkt 01.01.
+const MM=id=>M.find(m=>m.id===id);
 const ser=id=>R.filter(x=>x.m===id).sort((a,b)=>a.d<b.d?-1:a.d>b.d?1:0);
-const last=id=>{const s=ser(id);return s[s.length-1]};
-// Verbrauch im Zeitraum [a,b) (Tagesnummern), gleichmäßig zwischen Ablesungen verteilt
-function use(id,a,b){const s=ser(id);let t=0,ok=false;for(let i=1;i<s.length;i++){const x=dn(s[i-1].d),y=dn(s[i].d),span=y-x;if(span<=0||s[i].v<s[i-1].v)continue;ok=true;const ov=Math.min(b,y)-Math.max(a,x);if(ov>0)t+=(s[i].v-s[i-1].v)/span*ov}return ok?t:null}
-const grp=(k,a,b)=>{let t=0,ok=false;M.filter(m=>m.v===k).forEach(m=>{const u=use(m.id,a,b);if(u!==null){t+=u;ok=true}});return ok?t:null};
+function ev(id){const key='e'+id;if(MEMO[key])return MEMO[key];const m=MM(id);
+const e=[...ser(id).map(r=>({k:'r',t:dn(r.d)+1,v:r.v,d:r.d,o:0})),...S.sw.filter(s=>s.m===id).map(s=>({k:'sw',t:dn(s.d)+1,a:s.a,v:s.n,d:s.d,o:-1}))];
+if(m.f==='heizung'&&e.length){const y0=new Date((Math.min(...e.map(x=>x.t))-1)*864e5).getUTCFullYear();
+for(let y=y0;y<=Y+1;y++){const T=mdn(y,S.abrWH);if(T<=TD())e.push({k:'res',t:T,v:0,o:1})}}
+e.sort((p,q)=>p.t-q.t||p.o-q.o);return MEMO[key]=e}
+// Läuft die Ereignisse ab: Ablesung, Nullung (Heizung), Zählerwechsel. Liefert Verbrauchsintervalle und letzten Stand.
+function walk(e){let p=null;const iv=[];for(const x of e){if(x.k==='res'){p={t:x.t,v:0};continue}
+const end=x.k==='sw'?x.a:x.v;if(p&&x.t>p.t&&end>=p.v)iv.push({x:p.t,y:x.t,u:end-p.v});p=x}return{p,iv}}
+const IV=id=>MEMO['i'+id]||(MEMO['i'+id]=walk(ev(id)).iv);
+const lastPt=id=>{const e=ev(id).filter(x=>x.k!=='res');return e[e.length-1]};
+const prevAt=(id,d)=>{const t=dn(d)+1;return walk(ev(id).filter(x=>x.k==='sw'?x.t<=t:x.t<t)).p};
+const E0=()=>S.einzug?dn(S.einzug)+1:-1e9;
+function use(id,a,b){a=Math.max(a,E0());if(b<=a)return null;let t=0,ok=false;
+for(const i of IV(id)){const ov=Math.min(b,i.y)-Math.max(a,i.x);if(ov>0){ok=true;t+=i.u/(i.y-i.x)*ov}}return ok?t:null}
+const fak=id=>MM(id).f==='heizung'?(+S.fak[id]||1):1;
+const grp=(k,a,b)=>{let t=0,ok=false;M.filter(m=>m.v===k).forEach(m=>{const u=use(m.id,a,b);if(u!==null){t+=u*fak(m.id);ok=true}});return ok?t:null};
+const cov=k=>Math.max(-1e9,...M.filter(m=>m.v===k).flatMap(m=>IV(m.id).map(i=>i.y)));
+const mdk=k=>k==='strom'?S.abrS:S.abrWH;
+const pstart=(md,k=0)=>{let y=Y;if(mdn(y,md)>TD())y--;return mdn(y-k,md)};
+const pend=(md,a)=>mdn(new Date(a*864e5).getUTCFullYear()+1,md);
 const D=(y,m)=>Date.UTC(y,m,1)/864e5;
-const now=new Date(),Y=now.getFullYear(),Mo=now.getMonth();
 const mon=(y,m)=>new Date(y,m,1).toLocaleDateString('de-DE',{month:'short'});
 const unit=k=>M.find(m=>m.v===k||m.f===k).u,cdec=k=>M.find(m=>m.v===k).cd;
 const sv=(v,k)=>v===null?'–':'+'+fm(v,cdec(k))+' '+unit(k);
-function vHome(){return `<div><div class="sub">${now.toLocaleDateString('de-DE',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div><h1 style="margin:2px 0 0">Zähler</h1></div>`+V.map(g=>{
-const ms=M.filter(m=>m.v===g.k),ld=ms.map(m=>last(m.id)).filter(Boolean).map(x=>x.d).sort().pop();
-const cols=Math.min(ms.length,3),fk=ms[0].f;
+const pc=(c,p)=>{const x=(c/p-1)*100;return(x>=0?'+':'−')+fm(Math.abs(x),0)+' %'};
+function due(){if(!S.iv)return[];return F.filter(f=>{const d=M.filter(m=>m.f===f.k).map(m=>lastPt(m.id)).filter(Boolean).map(x=>x.d).sort().pop();return !d||TD()-dn(d)>=S.iv})}
+
+/* ---------- Ansichten ---------- */
+function vHome(){const du=due(),lb=localStorage.getItem('lb'),bo=R.length&&(!lb||Date.now()-new Date(lb)>30*864e5);
+let h=`<div><div class="sub">${now.toLocaleDateString('de-DE',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div><h1 style="margin:2px 0 0">Zähler</h1></div>`;
+if(du.length)h+=`<div class="ban"><div><b>Ablesung fällig</b><div class="sub">${du.map(f=>f.n).join(', ')}</div></div><button data-a="go" data-v="${du[0].k}">Erfassen</button></div>`;
+if(bo)h+=`<div class="ban" style="border-left-color:var(--c4)"><div><b>Backup empfohlen</b><div class="sub">${lb?'Letzte Sicherung vor '+Math.floor((Date.now()-new Date(lb))/864e5)+' Tagen':'Noch keine Sicherung'}</div></div><button data-a="tab" data-v="3">Sichern</button></div>`;
+return h+V.map(g=>{const ms=M.filter(m=>m.v===g.k),ld=ms.map(m=>lastPt(m.id)).filter(Boolean).map(x=>x.d).sort().pop();
+const cols=Math.min(ms.length,3),fk=ms[0].f,md=mdk(g.k),a=pstart(md),E=Math.min(TD()+1,cov(g.k));
+let cmp='';if(E>a){const pa=pstart(md,1),c=grp(g.k,a,E),p=grp(g.k,pa,pa+(E-a));if(c!==null&&p)cmp=`<div class="cmp">bis ${dsh(E-1)}: ${pc(c,p)} ggü. Vorjahr</div>`}
 return `<button class="card" data-a="go" data-v="${fk}"><div class="row"><span class="lab" style="color:var(${g.c})">${g.n}</span><span class="sub">${ld?'Ablesung '+dl(ld):'Noch keine Ablesung'}</span></div>
-<div class="grid" style="grid-template-columns:repeat(${cols},1fr)">${ms.map(m=>{const l=last(m.id);return `<div><div class="sub">${m.s}</div>${ms.length<=3?`<div class="big">${l?fm(l.v,m.d):'–'} <small>${m.u}</small></div>`:`<b>${l?fm(l.v,m.d):'–'}</b>`}</div>`}).join('')}</div>
-<div class="stats"><div><div class="sub">${mon(Y,Mo)} (bis heute)</div><b>${sv(grp(g.k,D(Y,Mo),D(Y,Mo+1)),g.k)}</b></div><div><div class="sub">Jahr ${Y}</div><b>${sv(grp(g.k,D(Y,0),D(Y+1,0)),g.k)}</b></div></div></button>`}).join('')}
-function vForm(){const ms=M.filter(m=>m.f===fc);return `<h1>Neue Ablesung</h1>
+<div class="grid" style="grid-template-columns:repeat(${cols},1fr)">${ms.map(m=>{const l=lastPt(m.id);return `<div><div class="sub">${m.s}</div>${ms.length<=3?`<div class="big">${l?fm(l.v,m.d):'–'} <small>${m.u}</small></div>`:`<b>${l?fm(l.v,m.d):'–'}</b>`}</div>`}).join('')}</div>
+<div class="stats"><div><div class="sub">${mon(Y,Mo)} (bis heute)</div><b>${sv(grp(g.k,D(Y,Mo),D(Y,Mo+1)),g.k)}</b></div><div><div class="sub">Abrechnung seit ${dsh(a)}</div><b>${sv(grp(g.k,a,pend(md,a)),g.k)}</b>${cmp}</div></div></button>`}).join('')}
+
+function vForm(){const ms=M.filter(m=>m.f===fc);let ex='';
+if(fc==='heizung'){const sd=ds(pstart(S.abrWH)-1);
+ex=`<div class="sub" style="margin:4px 4px 0">Die Heizkostenverteiler werden zum ${dsh(pstart(S.abrWH)).slice(0,6)} auf 0 gesetzt. Den Stichtagswert (Stand ${dl(sd).slice(0,6)}) zeigen sie meist im Wechsel mit dem aktuellen Wert an.</div>`+
+(fd!==sd&&!(S.einzug&&sd<S.einzug)?`<button class="btn alt" data-a="stich" data-v="${sd}">Stichtagswerte zum ${dl(sd)} eintragen</button>`:'')}
+return `<h1>Neue Ablesung</h1>
 <div class="seg">${F.map(f=>`<button class="${f.k===fc?'on':''}" data-a="fc" data-v="${f.k}">${f.n}</button>`).join('')}</div>
-<label class="f">Datum<input type="date" id="date" value="${fd}" max="${today()}"></label>
+<label class="f">Datum<input type="date" id="date" value="${fd}" max="${today()}"${S.einzug?` min="${S.einzug}"`:''}></label>${ex}
 <div class="sub" style="margin:4px 4px 0">Zählerstand eintragen, leere Felder werden übersprungen.</div>
-${ms.map(m=>{const l=last(m.id);return `<label class="f">${m.s}<input inputmode="decimal" autocomplete="off" data-m="${m.id}" placeholder="${l?'zuletzt '+fm(l.v,m.d):'Zählerstand'}"></label>`}).join('')}
+${ms.map(m=>{const l=lastPt(m.id);return `<label class="f">${m.s}<input inputmode="decimal" autocomplete="off" data-m="${m.id}" placeholder="${l?'zuletzt '+fm(l.v,m.d):'Zählerstand'}"></label>`}).join('')}
 <button class="btn" data-a="save">Speichern</button>`}
-function vHist(){const ms=M.filter(m=>m.v===vc),g=V.find(x=>x.k===vc);
-const P=[];if(vm==='m')for(let i=5;i>=0;i--){const d=new Date(Y,Mo-i,1),y=d.getFullYear(),m=d.getMonth();P.push({l:mon(y,m),a:D(y,m),b:D(y,m+1)})}else for(let i=3;i>=0;i--)P.push({l:''+(Y-i),a:D(Y-i,0),b:D(Y-i+1,0)});
-const data=P.map(p=>({...p,v:ms.map(m=>use(m.id,p.a,p.b)||0),t:grp(vc,p.a,p.b)}));
+
+function vHist(){const ms=M.filter(m=>m.v===vc),g=V.find(x=>x.k===vc),md=mdk(vc),P=[];
+if(vm==='m')for(let i=5;i>=0;i--){const d=new Date(Y,Mo-i,1),y=d.getFullYear(),m=d.getMonth();P.push({l:mon(y,m),a:D(y,m),b:D(y,m+1),pa:D(y-1,m),pb:D(y-1,m+1)})}
+else if(vm==='y')for(let i=3;i>=0;i--)P.push({l:''+(Y-i),a:D(Y-i,0),b:D(Y-i+1,0)});
+else for(let i=3;i>=0;i--){const a=pstart(md,i),y=new Date(a*864e5).getUTCFullYear();P.push({l:md==='01-01'?''+y:(''+y).slice(2)+'/'+(''+(y+1)).slice(2),a,b:pend(md,a)})}
+const data=P.map(p=>({...p,v:ms.map(m=>(use(m.id,p.a,p.b)||0)*fak(m.id)),t:grp(vc,p.a,p.b),p:p.pa===undefined?undefined:grp(vc,p.pa,p.pb)}));
 const mx=Math.max(1e-9,...data.map(d=>d.v.reduce((a,b)=>a+b,0)));
-const rows=R.filter(x=>ms.some(m=>m.id===x.m)).sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:0).slice(0,25);
+const rows=[...R.filter(x=>ms.some(m=>m.id===x.m)).map(r=>({...r,k:'r'})),...S.sw.filter(s=>ms.some(m=>m.id===s.m)).map(s=>({...s,k:'sw'}))].sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:a.k==='sw'?1:-1).slice(0,30);
+const gew=vc==='heizung'&&ms.some(m=>fak(m.id)!==1);
 return `<h1>Verlauf</h1><div class="seg">${V.map(x=>`<button class="${x.k===vc?'on':''}" data-a="vc" data-v="${x.k}">${x.t}</button>`).join('')}</div>
-<div class="seg"><button class="${vm==='m'?'on':''}" data-a="vm" data-v="m">Monate</button><button class="${vm==='y'?'on':''}" data-a="vm" data-v="y">Jahre</button></div>
-<section class="card"><div class="row"><span class="lab" style="color:var(${g.c})">${g.n}</span><span class="sub">Verbrauch in ${unit(vc)}</span></div>
-<div class="bars">${data.map(d=>`<div class="bc"><div class="bv">${d.t===null?'–':fm(d.t,cdec(vc))}</div><div class="bb">${d.v.map((v,i)=>`<div style="height:${v/mx*100}%;background:${PAL[i%6]}"></div>`).join('')}</div><span class="sub">${d.l}</span></div>`).join('')}</div>
+<div class="seg">${[['m','Monate'],['y','Jahre'],['a','Abrechnung']].map(([k,n])=>`<button class="${vm===k?'on':''}" data-a="vm" data-v="${k}">${n}</button>`).join('')}</div>
+<section class="card"><div class="row"><span class="lab" style="color:var(${g.c})">${g.n}</span><span class="sub">Verbrauch in ${unit(vc)}${gew?' (gewichtet)':''}</span></div>
+<div class="bars">${data.map(d=>`<div class="bc"><div class="bv">${d.t===null?'–':fm(d.t,cdec(vc))}</div><div class="bb">${d.v.map((v,i)=>`<div style="height:${v/mx*100}%;background:${PAL[i%6]}"></div>`).join('')}</div><span class="sub">${d.l}</span>${d.p!==undefined?`<span class="vj">VJ ${d.p===null?'–':fm(d.p,cdec(vc))}</span>`:''}</div>`).join('')}</div>
+${vm==='m'?'<div class="sub">VJ = gleicher Monat im Vorjahr</div>':vm==='a'?`<div class="sub">Abrechnungszeitraum ab ${dl('2000-'+md).slice(0,6)}</div>`:''}
 <div class="leg">${ms.length>1?ms.map((m,i)=>`<span><span style="color:${PAL[i%6]}">■</span> ${m.s}</span>`).join(''):''}</div></section>
-<section class="card" style="gap:0"><div class="sub" style="padding-bottom:8px">Letzte Ablesungen</div>${rows.length?rows.map(r=>{const m=M.find(x=>x.id===r.m);return `<div class="li"><span>${dl(r.d)}</span><span style="flex:1;text-align:right">${ms.length>1?m.s+' · ':''}<b>${fm(r.v,m.d)}</b> ${m.u}</span><button data-a="del" data-v="${r.id}" aria-label="Ablesung löschen">×</button></div>`}).join(''):'<div class="sub">Noch keine Ablesungen. Trage unter „Erfassen“ den ersten Zählerstand ein.</div>'}</section>`}
-function vBak(){const lb=localStorage.getItem('lb');const old=!lb||(Date.now()-new Date(lb))>30*864e5;
-return `<h1>Backup</h1><section class="card"><div><b>${R.length}</b> Ablesungen gespeichert</div><div class="sub">Letztes Backup: ${lb?dl(lb.slice(0,10)):'noch nie'}${old?' – Zeit für eine Sicherung.':''}</div><div class="sub">Die Daten liegen nur auf diesem iPhone. Speichere die Sicherung über das Teilen-Menü in „Dateien“ (iCloud Drive).</div></section>
-<button class="btn" data-a="expJ">Sicherung exportieren (JSON)</button><button class="btn alt" data-a="expC">Als CSV exportieren</button><button class="btn alt" data-a="imp">Sicherung importieren</button>`}
-function render(){$('#app').innerHTML=[vHome,vForm,vHist,vBak][tab]();document.querySelectorAll('nav button').forEach((b,i)=>b.classList.toggle('on',i===tab))}
-function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),2200)}
+<section class="card" style="gap:0"><div class="sub" style="padding-bottom:8px">Letzte Ablesungen</div>${rows.length?rows.map(r=>{const m=MM(r.m);
+return r.k==='sw'?`<div class="li"><span>${dl(r.d)}</span><span style="flex:1;text-align:right">${ms.length>1?m.s+' · ':''}Zählerwechsel<br><span class="sub">alt ${fm(r.a,m.d)} → neu ${fm(r.n,m.d)}</span></span><button data-a="delsw" data-v="${esc(r.id)}" aria-label="Zählerwechsel löschen">×</button></div>`
+:`<div class="li"><span>${dl(r.d)}</span><span style="flex:1;text-align:right">${ms.length>1?m.s+' · ':''}<b>${fm(r.v,m.d)}</b> ${m.u}</span><button data-a="del" data-v="${r.id}" aria-label="Ablesung löschen">×</button></div>`}).join(''):'<div class="sub">Noch keine Ablesungen. Trage unter „Erfassen“ den ersten Zählerstand ein.</div>'}</section>`}
+
+function vSet(){const lb=localStorage.getItem('lb'),old=!lb||(Date.now()-new Date(lb))>30*864e5;
+const perm='Notification' in window?Notification.permission:'na';
+const bdg=perm==='na'?'<div class="sub" style="margin:0 4px">Die Zahl am App-Symbol funktioniert nur in der installierten App (Home-Bildschirm).</div>'
+:perm==='granted'?'<div class="sub" style="margin:0 4px">Zahl am App-Symbol ist aktiv. Sie zeigt, wie viele Bereiche fällig sind, und wird beim Öffnen der App aktualisiert.</div>'
+:perm==='denied'?'<div class="sub" style="margin:0 4px">Mitteilungen sind blockiert. Erlauben unter iPhone-Einstellungen → Mitteilungen → Zähler.</div>'
+:'<button class="btn alt" data-a="perm">Zahl am App-Symbol aktivieren</button><div class="sub" style="margin:0 4px">iOS fragt dafür nach der Erlaubnis für Mitteilungen. Die App verschickt selbst keine Mitteilungen.</div>';
+return `<h1>Einstellungen</h1>
+<h2>Einzug</h2>
+<label class="f">Einzugsdatum<input type="date" data-s="einzug" value="${S.einzug}" max="${today()}"></label>
+${S.einzug?`<button class="btn alt" data-a="einz">Anfangsstände zum ${dl(S.einzug)} erfassen</button>`:''}
+<div class="sub" style="margin:0 4px">Verbrauch vor dem Einzug wird nicht mitgerechnet. Trage am Einzugstag die Stände aus dem Übergabeprotokoll ein.</div>
+<h2>Erinnerung</h2>
+<div class="seg">${[[14,'Alle 2 Wochen'],[30,'Monatlich'],[0,'Aus']].map(([v,n])=>`<button class="${S.iv===v?'on':''}" data-a="iv" data-v="${v}">${n}</button>`).join('')}</div>
+${bdg}
+<h2>Abrechnungszeitraum</h2>
+<label class="f">Wasser &amp; Heizung ab<input type="date" data-s="abrWH" value="${Y}-${S.abrWH}"></label>
+<label class="f">Strom ab<input type="date" data-s="abrS" value="${Y}-${S.abrS}"></label>
+<div class="sub" style="margin:0 4px">Es zählen nur Tag und Monat. Zum Beginn von Wasser &amp; Heizung werden die Heizkostenverteiler auf 0 gesetzt.</div>
+<h2>Zähler</h2>
+${F.map(f=>`<section class="card" style="gap:0"><div class="row" style="padding-bottom:8px"><span class="lab" style="color:var(${f.c})">${f.n}</span>${f.k==='heizung'?'<span class="sub">Nr. · Faktor</span>':'<span class="sub">Zählernummer</span>'}</div>
+${M.filter(m=>m.f===f.k).map(m=>{const lp=lastPt(m.id);return `<div class="mr"><span class="nm">${m.s}</span><input data-s="nr.${m.id}" value="${esc(S.nr[m.id]||'')}" placeholder="Nr." autocomplete="off">${f.k==='heizung'?`<input class="fk" inputmode="decimal" data-s="fak.${m.id}" value="${S.fak[m.id]?String(S.fak[m.id]).replace('.',','):''}" placeholder="1">`:''}<button class="sbtn" data-a="sw" data-v="${m.id}">Wechsel</button></div>
+${so===m.id?`<div class="swf"><b>Zählerwechsel ${m.n}</b>
+<label class="f">Datum<input type="date" id="swd" value="${today()}" max="${today()}"></label>
+<label class="f">Endstand alt<input id="swa" inputmode="decimal" autocomplete="off" placeholder="${lp?'zuletzt '+fm(lp.v,m.d):'Zählerstand'}"></label>
+<label class="f">Anfangsstand neu<input id="swn" inputmode="decimal" autocomplete="off" placeholder="0"></label>
+<label class="f">Neue Zählernr.<input id="swr" autocomplete="off" placeholder="optional"></label>
+<div class="two"><button class="btn alt" data-a="swx">Abbrechen</button><button class="btn" data-a="sws" data-v="${m.id}">Speichern</button></div></div>`:''}`}).join('')}
+${f.k==='heizung'?'<div class="sub" style="padding-top:8px">Faktor aus der Heizkostenabrechnung (leer = 1). Der Verbrauch wird damit gewichtet, die Zählerstände bleiben unverändert.</div>':''}</section>`).join('')}
+<h2>Backup</h2>
+<section class="card"><div><b>${R.length}</b> Ablesungen gespeichert${S.sw.length?`, <b>${S.sw.length}</b> Zählerwechsel`:''}</div><div class="sub">Letztes Backup: ${lb?dl(lb.slice(0,10)):'noch nie'}${old?' – Zeit für eine Sicherung.':''}</div><div class="sub">Die Daten liegen nur auf diesem iPhone. Speichere die Sicherung über das Teilen-Menü in „Dateien“ (iCloud Drive). Die Sicherung enthält auch alle Einstellungen.</div></section>
+<button class="btn" data-a="expJ">Sicherung exportieren (JSON)</button><button class="btn alt" data-a="expC">Als CSV exportieren</button><button class="btn alt" data-a="imp">Sicherung importieren</button>
+<div class="sub" style="text-align:center;margin-top:8px">Zähler · Version ${VERSION}</div>`}
+
+/* ---------- Steuerung ---------- */
+const badge=n=>{try{if(n&&navigator.setAppBadge)navigator.setAppBadge(n).catch(()=>{});else if(navigator.clearAppBadge)navigator.clearAppBadge().catch(()=>{})}catch(e){}};
+function render(){$('#app').innerHTML=[vHome,vForm,vHist,vSet][tab]();document.querySelectorAll('nav button').forEach((b,i)=>b.classList.toggle('on',i===tab));
+const n=due().length;$('nav button[data-v="1"]').classList.toggle('dot',n>0);badge(n)}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>e.classList.remove('on'),2200)}
 const num=s=>{s=s.trim().replace(/\s/g,'');if(s.includes(','))s=s.replace(/\./g,'').replace(',','.');const n=Number(s);return s&&isFinite(n)?n:NaN};
-async function save(){const d=$('#date').value;fd=d;if(!d)return toast('Bitte ein Datum wählen');let n=0;
-for(const i of document.querySelectorAll('input[data-m]')){if(!i.value.trim())continue;const m=M.find(x=>x.id===i.dataset.m),v=num(i.value);
+async function save(){const d=$('#date').value;fd=d;if(!d)return toast('Bitte ein Datum wählen');if(S.einzug&&d<S.einzug)return toast('Datum liegt vor dem Einzug');const todo=[];
+for(const i of document.querySelectorAll('input[data-m]')){if(!i.value.trim())continue;const m=MM(i.dataset.m),v=num(i.value);
 if(isNaN(v)||v<0)return toast('Ungültiger Wert bei '+m.s);
-const prev=ser(m.id).filter(x=>x.d<d).pop();
-if(prev&&v<prev.v&&!confirm(m.s+': Der Wert ist niedriger als der Stand vom '+dl(prev.d)+' ('+fm(prev.v,m.d)+'). Trotzdem speichern?'))return;
-for(const o of R.filter(x=>x.m===m.id&&x.d===d))await pr(st('readwrite').delete(o.id));
-await pr(st('readwrite').add({m:m.id,d,v}));n++}
-if(!n)return toast('Keine Werte eingetragen');await load();render();toast(n+' Ablesung'+(n>1?'en':'')+' gespeichert')}
+const p=prevAt(m.id,d);
+if(p&&v<p.v&&!confirm(m.s+': Der Wert ist niedriger als der vorherige Stand'+(p.d?' vom '+dl(p.d):'')+' ('+fm(p.v,m.d)+'). Trotzdem speichern?'))return;
+todo.push([m,v])}
+if(!todo.length)return toast('Keine Werte eingetragen');
+for(const [m,v] of todo){for(const o of R.filter(x=>x.m===m.id&&x.d===d))await pr(st('readwrite').delete(o.id));await pr(st('readwrite').add({m:m.id,d,v}))}
+await load();render();toast(todo.length+' Ablesung'+(todo.length>1?'en':'')+' gespeichert')}
 async function out(name,type,text){const f=new File([text],name,{type});if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({files:[f]});return true}catch(e){if(e.name==='AbortError')return false}}const a=document.createElement('a');a.href=URL.createObjectURL(f);a.download=name;a.click();return true}
 const stamp=()=>new Date().toISOString();
+const cn=v=>String(v).replace('.',',');
 const A={
-tab:v=>{tab=+v;render();scrollTo(0,0)},
+tab:v=>{tab=+v;so=null;render();scrollTo(0,0)},
 go:v=>{fc=v;A.tab(1)},fc:v=>{fc=v;render()},vc:v=>{vc=v;render()},vm:v=>{vm=v;render()},
+stich:v=>{fd=v;render()},
+einz:()=>{fd=S.einzug;fc='strom';A.tab(1)},
 save,
+async iv(v){S.iv=+v;await saveS();render()},
+async perm(){try{await Notification.requestPermission()}catch(e){}render()},
+sw:v=>{so=so===v?null:v;render()},swx:()=>{so=null;render()},
+async sws(id){const m=MM(id),d=$('#swd').value,a=num($('#swa').value),nv=$('#swn').value.trim()?num($('#swn').value):0,nr=$('#swr').value.trim();
+if(!d)return toast('Bitte ein Datum wählen');if(isNaN(a)||a<0)return toast('Bitte den Endstand des alten Zählers eintragen');if(isNaN(nv)||nv<0)return toast('Ungültiger Anfangsstand');
+const p=prevAt(id,d);if(p&&a<p.v&&!confirm('Der Endstand ist niedriger als der vorherige Stand ('+fm(p.v,m.d)+'). Trotzdem speichern?'))return;
+S.sw.push({id:String(Date.now()),m:id,d,a,n:nv,nrAlt:S.nr[id]||'',nrNeu:nr});if(nr)S.nr[id]=nr;so=null;await saveS();render();toast('Zählerwechsel gespeichert')},
+async delsw(v){const s=S.sw.find(x=>x.id===v);if(!s||!confirm('Zählerwechsel vom '+dl(s.d)+' löschen?'))return;
+if(s.nrNeu&&S.nr[s.m]===s.nrNeu){if(s.nrAlt)S.nr[s.m]=s.nrAlt;else delete S.nr[s.m]}S.sw=S.sw.filter(x=>x!==s);await saveS();render()},
 async del(v){const r=R.find(x=>x.id==v);if(r&&confirm('Ablesung vom '+dl(r.d)+' löschen?')){await pr(st('readwrite').delete(+v));await load();render()}},
-async expJ(){if(await out('zaehler-backup-'+today()+'.json','application/json',JSON.stringify({v:1,exported:stamp(),readings:R.map(({m,d,v})=>({m,d,v}))},null,1))){localStorage.setItem('lb',stamp());render()}},
-async expC(){const l=['Datum;Zähler;Wert',...[...R].sort((a,b)=>a.d<b.d?-1:1).map(r=>{const m=M.find(x=>x.id===r.m);return r.d+';'+m.n+';'+String(r.v).replace('.',',')})];await out('zaehler-'+today()+'.csv','text/csv','\ufeff'+l.join('\n'))},
+async expJ(){const {k,...s}=S;if(await out('zaehler-backup-'+today()+'.json','application/json',JSON.stringify({v:2,exported:stamp(),readings:R.map(({m,d,v})=>({m,d,v})),settings:s},null,1))){localStorage.setItem('lb',stamp());render()}},
+async expC(){const l=['Datum;Zähler;Zählernummer;Wert',...[...R].sort((a,b)=>a.d<b.d?-1:1).map(r=>{const m=MM(r.m);return r.d+';'+m.n+';'+(S.nr[r.m]||'')+';'+cn(r.v)}),
+...[...S.sw].sort((a,b)=>a.d<b.d?-1:1).map(s=>s.d+';'+MM(s.m).n+' – Zählerwechsel (Endstand alt / Anfang neu);'+(s.nrAlt||'')+' / '+(s.nrNeu||'')+';'+cn(s.a)+' / '+cn(s.n))];
+await out('zaehler-'+today()+'.csv','text/csv','\ufeff'+l.join('\n'))},
 imp:()=>$('#file').click()};
 document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(t)A[t.dataset.a](t.dataset.v)});
 document.addEventListener('input',e=>{if(e.target.id==='date')fd=e.target.value});
+document.addEventListener('change',async e=>{const k=e.target.dataset.s;if(!k)return;const v=e.target.value.trim();
+if(k==='abrWH'||k==='abrS'){if(!v)return;S[k]=v.slice(5)}
+else if(k==='einzug')S.einzug=v;
+else{const [o,id]=k.split('.');if(o==='fak'){const n=num(v);if(v&&(isNaN(n)||n<=0))return toast('Ungültiger Faktor');if(v)S.fak[id]=n;else delete S.fak[id]}else{if(v)S.nr[id]=v;else delete S.nr[id]}}
+await saveS();if(k==='einzug'||k.startsWith('abr'))render();toast('Gespeichert')});
 $('#file').addEventListener('change',async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
-try{const j=JSON.parse(await f.text()),ok=(j.readings||[]).filter(r=>M.some(m=>m.id===r.m)&&/^\d{4}-\d{2}-\d{2}$/.test(r.d)&&isFinite(r.v));
-if(!ok.length)throw 0;if(!confirm(ok.length+' Ablesungen importieren? Bestehende Einträge mit gleichem Zähler und Datum werden ersetzt.'))return;
-for(const r of ok){for(const o of R.filter(x=>x.m===r.m&&x.d===r.d))await pr(st('readwrite').delete(o.id));await pr(st('readwrite').add({m:r.m,d:r.d,v:+r.v}));await load()}
-render();toast(ok.length+' Ablesungen importiert')}catch(x){toast('Datei konnte nicht gelesen werden')}});
+try{const j=JSON.parse(await f.text()),seen=new Map();
+(j.readings||[]).forEach(r=>{if(r&&M.some(m=>m.id===r.m)&&isD(r.d)&&r.v!==null&&r.v!==''&&isFinite(r.v))seen.set(r.m+'|'+r.d,{m:r.m,d:r.d,v:+r.v})});
+const ok=[...seen.values()],hs=!!(j.settings&&typeof j.settings==='object');
+if(!ok.length&&!hs)throw 0;
+if(!confirm(ok.length+' Ablesungen'+(hs?' und die Einstellungen':'')+' importieren? Bestehende Einträge mit gleichem Zähler und Datum werden ersetzt.'+(hs?' Die aktuellen Einstellungen werden überschrieben.':'')))return;
+for(const r of ok){for(const o of R.filter(x=>x.m===r.m&&x.d===r.d))await pr(st('readwrite').delete(o.id));await pr(st('readwrite').add(r))}
+if(hs){S=fixS(j.settings);await saveS()}
+await load();render();toast(ok.length+' Ablesungen importiert')}catch(x){toast('Datei konnte nicht gelesen werden')}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)return;now=new Date();Y=now.getFullYear();Mo=now.getMonth();MEMO={};if(tab!==1)render();else badge(due().length)});
 (async()=>{try{db=await idb();await load()}catch(e){alert('Speicher nicht verfügbar. Bitte nicht im privaten Modus öffnen.')}
 render();if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();
-if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js')})();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js',{updateViaCache:'none'})})();
 </script>
 </body>
 </html>
