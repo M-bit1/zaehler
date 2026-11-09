@@ -19,7 +19,6 @@ body{margin:0;background:var(--bg);color:var(--ink);font:16px -apple-system,"SF 
 button,input{font:inherit;color:inherit}
 #app{padding:calc(env(safe-area-inset-top) + 20px) 16px calc(110px + env(safe-area-inset-bottom));max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
 h1{margin:0 4px;font-size:30px}
-h2{margin:14px 4px 0;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mut)}
 .sub{font-size:13px;color:var(--mut)}
 .card{background:var(--card);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;border:0;text-align:left;width:100%}
 .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
@@ -33,7 +32,7 @@ nav button{flex:1;min-height:56px;background:none;border:0;border-top:3px solid 
 nav button.on{font-weight:700;color:var(--ink);border-top-color:var(--ink)}
 nav button.dot::after{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--c2);margin-left:4px;vertical-align:middle}
 .seg{display:flex;background:var(--seg);border-radius:10px;padding:3px}
-.seg button{flex:1;min-height:40px;border:0;border-radius:8px;background:none;font-size:14px;color:var(--mut)}
+.seg button{flex:1;min-height:40px;border:0;border-radius:8px;background:none;font-size:14px;color:var(--mut);padding:0 2px}
 .seg button.on{background:var(--card);font-weight:700;color:var(--ink)}
 label.f{display:flex;justify-content:space-between;align-items:center;background:var(--card);border-radius:12px;padding:0 16px;min-height:52px;gap:8px}
 label.f input{border:0;background:none;text-align:right;width:150px;min-height:44px;outline:0}
@@ -45,17 +44,38 @@ label.f input{border:0;background:none;text-align:right;width:150px;min-height:4
 .bc{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
 .bv{font-size:11px;color:var(--mut)}
 .vj{font-size:10px;color:var(--mut);margin-top:-4px}
-.bb{height:130px;width:100%;display:flex;flex-direction:column;justify-content:flex-end}
+.bb{height:130px;width:100%;display:flex;flex-direction:column;justify-content:flex-end;gap:1px}
+.bb div{border-radius:2px}
 .leg{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px}
-.li{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-top:1px solid var(--line);gap:8px}
-.li button{background:none;border:0;color:var(--mut);font-size:20px;min-width:44px;min-height:44px}
+.sw{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
+.li{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-top:1px solid var(--line);gap:8px}
+.li .nm{flex:1;min-width:0}
+.li button{background:none;border:0;color:var(--mut);font-size:19px;min-width:44px;min-height:44px}
+.li input{width:110px;border:1px solid var(--line);border-radius:8px;background:var(--bg);min-height:40px;padding:0 8px;text-align:right;outline:0}
+.dh{font-size:13px;font-weight:700;color:var(--mut);padding:14px 0 4px}.dh:first-of-type{padding-top:0}
+.kv{display:grid;grid-template-columns:1fr auto;gap:7px 12px;font-size:15px;align-items:baseline}
+.kv .v{text-align:right;font-weight:600}
+.kv .hr{grid-column:1/-1;border-top:1px solid var(--line);margin:2px 0}
 .mr{display:flex;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--line)}
 .mr .nm{flex:1;min-width:0;font-size:15px}
 .mr input{width:96px;border:1px solid var(--line);border-radius:8px;background:var(--bg);min-height:40px;padding:0 8px;text-align:right;outline:0}
 .mr input.fk{width:62px}
 .sbtn{background:var(--seg);border:0;border-radius:8px;min-height:40px;padding:0 10px;font-size:14px}
 .swf{background:var(--bg);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;margin:0 0 10px}
+.swf label.f{background:var(--card)}
 .two{display:flex;gap:8px}
+details.sec{background:var(--card);border-radius:16px;padding:0 16px}
+details.sec>summary{list-style:none;min-height:56px;display:flex;align-items:center;justify-content:space-between;font-weight:700;font-size:17px;cursor:pointer}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary::after{content:"+";font-size:22px;font-weight:400;color:var(--mut)}
+details.sec[open]>summary::after{content:"−"}
+.in{display:flex;flex-direction:column;gap:10px;padding-bottom:16px}
+.in label.f,.in .btn.alt{background:var(--bg)}
+.in .seg{background:var(--seg)}
+.blk{display:flex;flex-direction:column;gap:0;margin-top:6px}
+.blk .lab{padding-bottom:6px}
+.res{background:var(--bg);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.warn{color:var(--c2)}
 #toast{position:fixed;left:50%;bottom:calc(80px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--inv);padding:10px 18px;border-radius:20px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;white-space:nowrap}
 #toast.on{opacity:1}
 </style>
@@ -66,21 +86,23 @@ label.f input{border:0;background:none;text-align:right;width:150px;min-height:4
 <input type="file" id="file" accept=".json,application/json" hidden>
 <div id="toast"></div>
 <script>
-const VERSION='2';
+const VERSION='3';
+// Diagrammfarben: mittelhell, auf hellem und dunklem Hintergrund gut sichtbar (kein Schwarz/Weiß)
+const HC=['#E8833A','#D8576B','#9B6BD3','#2BA89A','#4A90D9','#7FB03F'];
 const M=[
-{id:'st',n:'Strom Tag',s:'Tag',f:'strom',v:'strom',u:'kWh',d:0,cd:0},
-{id:'sn',n:'Strom Nacht',s:'Nacht',f:'strom',v:'strom',u:'kWh',d:0,cd:0},
-...['Bad','Toilette','Wohnzimmer','Esszimmer','Küche','Schlafzimmer'].map((r,i)=>({id:'h'+(i+1),n:'Heizung '+r,s:r,f:'heizung',v:'heizung',u:'Einh.',d:0,cd:0})),
-{id:'ww',n:'Warmwasser Küche',s:'Warmwasser Küche',f:'wasser',v:'warm',u:'m³',d:3,cd:2},
-{id:'kt',n:'Kaltwasser Toilette',s:'Kaltwasser Toilette',f:'wasser',v:'kalt',u:'m³',d:3,cd:2},
-{id:'kk',n:'Kaltwasser Küche',s:'Kaltwasser Küche',f:'wasser',v:'kalt',u:'m³',d:3,cd:2}];
+{id:'st',n:'Strom Tag',s:'Tag',f:'strom',v:'strom',u:'kWh',d:0,cd:0,c:'#D99A2B'},
+{id:'sn',n:'Strom Nacht',s:'Nacht',f:'strom',v:'strom',u:'kWh',d:0,cd:0,c:'#4A90D9'},
+...['Bad','Toilette','Wohnzimmer','Esszimmer','Küche','Schlafzimmer'].map((r,i)=>({id:'h'+(i+1),n:'Heizung '+r,s:r,f:'heizung',v:'heizung',u:'Einh.',d:0,cd:0,c:HC[i]})),
+{id:'ww',n:'Warmwasser Küche',s:'Warmwasser Küche',f:'wasser',v:'warm',u:'m³',d:3,cd:2,c:'#D8576B'},
+{id:'kt',n:'Kaltwasser Toilette',s:'Kaltwasser Toilette',f:'wasser',v:'kalt',u:'m³',d:3,cd:2,c:'#4A90D9'},
+{id:'kk',n:'Kaltwasser Küche',s:'Kaltwasser Küche',f:'wasser',v:'kalt',u:'m³',d:3,cd:2,c:'#2BA89A'}];
 const V=[{k:'strom',n:'Strom',c:'--c1',t:'Strom'},{k:'heizung',n:'Heizung',c:'--c2',t:'Heizung'},{k:'warm',n:'Warmwasser',c:'--c3',t:'Warmw.'},{k:'kalt',n:'Kaltwasser',c:'--c4',t:'Kaltw.'}];
 const F=[{k:'strom',n:'Strom',c:'--c1'},{k:'heizung',n:'Heizung',c:'--c2'},{k:'wasser',n:'Wasser',c:'--c4'}];
-const PAL=['#14211F','#B7791F','#1D5FA8','#B23A0B','#4B7F52','#8A6FB3'];
-const DEF={k:'s',einzug:'',abrWH:'01-01',abrS:'01-01',iv:14,nr:{},fak:{},sw:[]};
+const DEF={k:'s',einzug:'',abrWH:'01-01',abrS:'01-01',iv:14,nr:{},fak:{},sw:[],tarif:[],absch:[],bonus:[],flaeche:'',vzHW:'',abr:{}};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fm=(v,d)=>v.toLocaleString('de-DE',{minimumFractionDigits:d,maximumFractionDigits:d});
+const fe=v=>fm(v,2)+' €';
 const today=()=>{const t=new Date();return new Date(t-t.getTimezoneOffset()*6e4).toISOString().slice(0,10)};
 const dn=s=>{const [y,m,d]=s.split('-').map(Number);return Date.UTC(y,m-1,d)/864e5};
 const ds=n=>new Date(n*864e5).toISOString().slice(0,10);
@@ -88,7 +110,10 @@ const dl=s=>s.split('-').reverse().join('.');
 const dsh=n=>{const s=dl(ds(n));return s.slice(0,6)+s.slice(8)};
 const TD=()=>dn(today());
 const mdn=(y,md)=>{let [m,d]=md.split('-').map(Number);if(m===2&&d===29)d=28;return Date.UTC(y,m-1,d)/864e5};
-let db,R=[],S={...DEF},MEMO={},tab=0,fc='strom',vc='strom',vm='m',fd=today(),so=null;
+const yr=n=>new Date(n*864e5).getUTCFullYear();
+const ml=ym=>{const [y,m]=ym.split('-').map(Number);return new Date(y,m-1,1).toLocaleDateString('de-DE',{month:'short',year:'numeric'})};
+let db,R=[],S={...DEF},MEMO={},tab=0,fc='strom',vc='strom',vm='m',fd=today(),so=null,ed=null,lim=40,ay=null;
+const OPEN=new Set(['allg']);
 let now=new Date(),Y=now.getFullYear(),Mo=now.getMonth();
 
 /* ---------- Speicher ---------- */
@@ -99,24 +124,34 @@ q.onsuccess=()=>ok(q.result);q.onerror=()=>no(q.error)});
 const st=(m,s='r')=>db.transaction(s,m).objectStore(s);
 const pr=r=>new Promise((ok,no)=>{r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)});
 const isD=x=>typeof x==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(x);
+const fin=x=>x!==''&&x!==null&&typeof x!=='boolean'&&isFinite(x);
+const nid=x=>String(x||Date.now()+Math.random());
+const ABRK=['pH','gH','bH','pWW','gWW','bWW','pKW','bKW'];
+// Bereinigt Einstellungen (auch aus alten Backups v1/v2, in denen neue Felder fehlen)
 function fixS(s){s={...DEF,...(s&&typeof s==='object'?s:{})};s.k='s';
 s.nr=s.nr&&typeof s.nr==='object'?{...s.nr}:{};s.fak=s.fak&&typeof s.fak==='object'?{...s.fak}:{};
-s.sw=Array.isArray(s.sw)?s.sw.filter(x=>x&&M.some(m=>m.id===x.m)&&isD(x.d)&&isFinite(x.a)&&isFinite(x.n)).map(x=>({...x,id:String(x.id||Math.random()),a:+x.a,n:+x.n})):[];
+s.sw=Array.isArray(s.sw)?s.sw.filter(x=>x&&M.some(m=>m.id===x.m)&&isD(x.d)&&fin(x.a)&&fin(x.n)).map(x=>({...x,id:nid(x.id),a:+x.a,n:+x.n})):[];
+s.tarif=Array.isArray(s.tarif)?s.tarif.filter(t=>t&&isD(t.ab)&&fin(t.ap)&&fin(t.gp)).map(t=>({id:nid(t.id),ab:t.ab,ap:+t.ap,gp:+t.gp})):[];
+s.absch=Array.isArray(s.absch)?s.absch.filter(t=>t&&/^\d{4}-\d{2}$/.test(t.ab)&&fin(t.eur)).map(t=>({id:nid(t.id),ab:t.ab,eur:+t.eur})):[];
+s.bonus=Array.isArray(s.bonus)?s.bonus.filter(t=>t&&isD(t.d)&&fin(t.eur)).map(t=>({id:nid(t.id),d:t.d,eur:+t.eur})):[];
+s.flaeche=fin(s.flaeche)&&+s.flaeche>0?+s.flaeche:'';s.vzHW=fin(s.vzHW)&&+s.vzHW>=0?+s.vzHW:'';
+const ab={};if(s.abr&&typeof s.abr==='object')for(const y of Object.keys(s.abr)){const o=s.abr[y];if(!/^\d{4}$/.test(y)||!o||typeof o!=='object')continue;const c={};
+ABRK.forEach(k=>{if(fin(o[k]))c[k]=+o[k]});if(o.w&&typeof o.w==='object'){const w={};M.forEach(m=>{if(m.f!=='strom'&&fin(o.w[m.id]))w[m.id]=+o.w[m.id]});if(Object.keys(w).length)c.w=w}
+if(Object.keys(c).length)ab[y]=c}s.abr=ab;
 if(!/^\d\d-\d\d$/.test(s.abrWH))s.abrWH='01-01';if(!/^\d\d-\d\d$/.test(s.abrS))s.abrS='01-01';
 s.iv=[0,14,30].includes(+s.iv)?+s.iv:14;if(!isD(s.einzug))s.einzug='';return s}
 const load=async()=>{R=await pr(st('readonly').getAll());S=fixS(await pr(st('readonly','cfg').get('s')));MEMO={}};
 const saveS=async()=>{await pr(st('readwrite','cfg').put(S));MEMO={}};
 
-/* ---------- Rechenlogik ---------- */
+/* ---------- Rechenlogik Verbrauch ---------- */
 // Zeitpunkt einer Ablesung = Ende des Ablesetags. Der Stichtagswert vom 31.12. liegt damit genau auf dem Nullungszeitpunkt 01.01.
 const MM=id=>M.find(m=>m.id===id);
 const ser=id=>R.filter(x=>x.m===id).sort((a,b)=>a.d<b.d?-1:a.d>b.d?1:0);
 function ev(id){const key='e'+id;if(MEMO[key])return MEMO[key];const m=MM(id);
 const e=[...ser(id).map(r=>({k:'r',t:dn(r.d)+1,v:r.v,d:r.d,o:0})),...S.sw.filter(s=>s.m===id).map(s=>({k:'sw',t:dn(s.d)+1,a:s.a,v:s.n,d:s.d,o:-1}))];
-if(m.f==='heizung'&&e.length){const y0=new Date((Math.min(...e.map(x=>x.t))-1)*864e5).getUTCFullYear();
+if(m.f==='heizung'&&e.length){const y0=yr(Math.min(...e.map(x=>x.t))-1);
 for(let y=y0;y<=Y+1;y++){const T=mdn(y,S.abrWH);if(T<=TD())e.push({k:'res',t:T,v:0,o:1})}}
 e.sort((p,q)=>p.t-q.t||p.o-q.o);return MEMO[key]=e}
-// Läuft die Ereignisse ab: Ablesung, Nullung (Heizung), Zählerwechsel. Liefert Verbrauchsintervalle und letzten Stand.
 function walk(e){let p=null;const iv=[];for(const x of e){if(x.k==='res'){p={t:x.t,v:0};continue}
 const end=x.k==='sw'?x.a:x.v;if(p&&x.t>p.t&&end>=p.v)iv.push({x:p.t,y:x.t,u:end-p.v});p=x}return{p,iv}}
 const IV=id=>MEMO['i'+id]||(MEMO['i'+id]=walk(ev(id)).iv);
@@ -127,10 +162,17 @@ function use(id,a,b){a=Math.max(a,E0());if(b<=a)return null;let t=0,ok=false;
 for(const i of IV(id)){const ov=Math.min(b,i.y)-Math.max(a,i.x);if(ov>0){ok=true;t+=i.u/(i.y-i.x)*ov}}return ok?t:null}
 const fak=id=>MM(id).f==='heizung'?(+S.fak[id]||1):1;
 const grp=(k,a,b)=>{let t=0,ok=false;M.filter(m=>m.v===k).forEach(m=>{const u=use(m.id,a,b);if(u!==null){t+=u*fak(m.id);ok=true}});return ok?t:null};
+const gm=k=>M.filter(m=>m.v===k&&IV(m.id).length);
 const cov=k=>Math.max(-1e9,...M.filter(m=>m.v===k).flatMap(m=>IV(m.id).map(i=>i.y)));
+const covS=k=>{const g=gm(k);return g.length?Math.max(...g.map(m=>IV(m.id)[0].x)):null};
+const covE=k=>{const g=gm(k);return g.length?Math.min(...g.map(m=>IV(m.id).at(-1).y)):null};
+const covers=(k,x,y)=>{const g=gm(k);return g.length>0&&g.every(m=>IV(m.id)[0].x<=x+1&&IV(m.id).at(-1).y>=y)};
+// Vorjahresverlauf nur nutzen, wenn mindestens etwa monatlich abgelesen wurde
+const dense=(k,x,y)=>gm(k).every(m=>IV(m.id).every(i=>i.y<=x||i.x>=y||i.y-i.x<=62));
 const mdk=k=>k==='strom'?S.abrS:S.abrWH;
 const pstart=(md,k=0)=>{let y=Y;if(mdn(y,md)>TD())y--;return mdn(y-k,md)};
-const pend=(md,a)=>mdn(new Date(a*864e5).getUTCFullYear()+1,md);
+const pend=(md,a)=>mdn(yr(a)+1,md);
+const plab=(md,a)=>{const y=yr(a);return md==='01-01'?''+y:(''+y).slice(2)+'/'+(''+(y+1)).slice(2)};
 const D=(y,m)=>Date.UTC(y,m,1)/864e5;
 const mon=(y,m)=>new Date(y,m,1).toLocaleDateString('de-DE',{month:'short'});
 const unit=k=>M.find(m=>m.v===k||m.f===k).u,cdec=k=>M.find(m=>m.v===k).cd;
@@ -138,11 +180,50 @@ const sv=(v,k)=>v===null?'–':'+'+fm(v,cdec(k))+' '+unit(k);
 const pc=(c,p)=>{const x=(c/p-1)*100;return(x>=0?'+':'−')+fm(Math.abs(x),0)+' %'};
 function due(){if(!S.iv)return[];return F.filter(f=>{const d=M.filter(m=>m.f===f.k).map(m=>lastPt(m.id)).filter(Boolean).map(x=>x.d).sort().pop();return !d||TD()-dn(d)>=S.iv})}
 
+/* ---------- Prognose ---------- */
+// Typische Verteilung des Heizbedarfs (Promille je Monat, Jan–Dez)
+const HW=[170,150,130,80,40,13.3,13.3,13.3,30,80,120,160];
+const W=(x,y)=>{let t=0;for(let n=x;n<y;n++){const d=new Date(n*864e5),m=d.getUTCMonth();t+=HW[m]/new Date(Date.UTC(d.getUTCFullYear(),m+1,0)).getUTCDate()}return t};
+function prog(k){const md=mdk(k),a0=pstart(md),b=pend(md,a0),a=Math.max(a0,E0()-1);
+if(b<=a)return null;const s0=covS(k),e0=covE(k);
+if(s0===null)return{a0,a,b,none:true};
+const s=Math.max(a,s0),E=Math.min(b,TD()+1,e0);
+if(!(E>s))return{a0,a,b,none:true};
+const c=grp(k,s,E);if(c===null)return{a0,a,b,none:true};
+const pa=pstart(md,1),off=a0-pa,prev=covers(k,pa,a0)&&pa>=E0()-1?grp(k,pa,a0):null;
+let rest=0,how,r=null;
+if(k==='heizung'){const pcv=covers(k,a-off,b-off)&&dense(k,a-off,b-off)?grp(k,s-off,E-off):null;
+if(pcv>0){const f=c/pcv;rest=((grp(k,a-off,s-off)||0)+(grp(k,E-off,b-off)||0))*f;how='Vorjahresverlauf, angepasst an deinen aktuellen Trend'}
+else{const w=W(s,E);rest=w>0?c/w*(W(a,s)+W(E,b)):0;how='typischer Heizverlauf über das Jahr'}}
+else{const rs=Math.max(s0,E-365,E0()-1);r=(grp(k,rs,E)||0)/Math.max(1,E-rs);rest=r*((s-a)+(b-E));how=E-rs>=300?'Ø-Verbrauch der letzten 12 Monate':'Ø-Verbrauch seit Beginn der Ablesungen'}
+return{a0,a,b,s,E,c,p:c+rest,prev,how,r,days:E-s}}
+function months(a,b){const r=[],d=new Date(a*864e5),y=d.getUTCFullYear();let m=d.getUTCMonth();if(d.getUTCDate()!==1)m++;
+for(let i=0;i<40;i++,m++){const n=Date.UTC(y,m,1)/864e5;if(n>=b)break;r.push({n,ym:ds(n).slice(0,7)})}return r}
+const absAt=ym=>{const x=S.absch.filter(t=>t.ab<=ym).sort((p,q)=>p.ab<q.ab?-1:1).pop();return x?x.eur:0};
+function sCost(P){if(!S.tarif.length||!P||P.none)return null;const T=[...S.tarif].sort((x,y)=>x.ab<y.ab?-1:1);
+const seg=T.map((t,i)=>({x:i?dn(t.ab):-1e9,y:i<T.length-1?dn(T[i+1].ab):1e9,t}));
+const ov=(x,y,z)=>Math.max(0,Math.min(y,z.y)-Math.max(x,z.x));let e=0,rem=0,g=0,gb=0;
+for(const z of seg){const x=Math.max(P.s,z.x),y=Math.min(P.E,z.y);if(y>x)e+=(grp('strom',x,y)||0)*z.t.ap/100;
+rem+=P.r*(ov(P.a,P.s,z)+ov(P.E,P.b,z))*z.t.ap/100;g+=ov(P.a,P.b,z)*z.t.gp/365;gb+=ov(P.a,P.E,z)*z.t.gp/365}
+const ms=months(P.a,P.b),ab=ms.reduce((t,m)=>t+absAt(m.ym),0),abB=ms.filter(m=>m.n<=TD()).reduce((t,m)=>t+absAt(m.ym),0);
+const bo=S.bonus.filter(x=>dn(x.d)>=P.a0&&dn(x.d)<P.b).reduce((t,x)=>t+x.eur,0),tot=e+rem+g;
+return{bis:e+gb,tot,ab,abB,bo,saldo:tot-ab-bo,emp:ms.length?(tot-bo)/ms.length:null,n:ms.length}}
+const lp=key=>{const ys=Object.keys(S.abr).filter(y=>fin(S.abr[y][key])).sort();return ys.length?{y:ys.at(-1),v:S.abr[ys.at(-1)][key]}:null};
+const HWK={heizung:['pH','gH'],warm:['pWW','gWW'],kalt:['pKW',null]};
+function hwCost(k,P){if(!P||P.none)return null;const [pk,gk]=HWK[k],p=lp(pk);if(!p)return null;const g=gk?lp(gk):null,fr=(P.b-P.a)/(P.b-P.a0);
+return{tot:P.p*p.v+(g&&S.flaeche?g.v*S.flaeche*fr:0),y:p.y,gmiss:!!(g&&!S.flaeche)}}
+
+/* ---------- Plausibilität ---------- */
+function plaus(id,d,v){const m=MM(id),p=prevAt(id,d);if(!p||p.t===undefined||v<p.v)return'';const days=dn(d)+1-p.t;if(days<1)return'';
+const iv=IV(id).filter(i=>i.y<=p.t&&i.x>=p.t-365),sd=iv.reduce((t,i)=>t+i.y-i.x,0),su=iv.reduce((t,i)=>t+i.u,0);if(sd<60||su<=0)return'';
+const r0=su/sd,f=m.f==='heizung'?5:3,du=v-p.v;
+return du>f*r0*days&&du>r0*7?m.s+': '+fm(du,m.d)+' '+m.u+' in '+days+' Tagen ist ungewöhnlich viel (sonst ca. '+fm(r0*days,m.d)+'). Tippfehler?':''}
+
 /* ---------- Ansichten ---------- */
 function vHome(){const du=due(),lb=localStorage.getItem('lb'),bo=R.length&&(!lb||Date.now()-new Date(lb)>30*864e5);
 let h=`<div><div class="sub">${now.toLocaleDateString('de-DE',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div><h1 style="margin:2px 0 0">Zähler</h1></div>`;
 if(du.length)h+=`<div class="ban"><div><b>Ablesung fällig</b><div class="sub">${du.map(f=>f.n).join(', ')}</div></div><button data-a="go" data-v="${du[0].k}">Erfassen</button></div>`;
-if(bo)h+=`<div class="ban" style="border-left-color:var(--c4)"><div><b>Backup empfohlen</b><div class="sub">${lb?'Letzte Sicherung vor '+Math.floor((Date.now()-new Date(lb))/864e5)+' Tagen':'Noch keine Sicherung'}</div></div><button data-a="tab" data-v="3">Sichern</button></div>`;
+if(bo)h+=`<div class="ban" style="border-left-color:var(--c4)"><div><b>Backup empfohlen</b><div class="sub">${lb?'Letzte Sicherung vor '+Math.floor((Date.now()-new Date(lb))/864e5)+' Tagen':'Noch keine Sicherung'}</div></div><button data-a="bak">Sichern</button></div>`;
 return h+V.map(g=>{const ms=M.filter(m=>m.v===g.k),ld=ms.map(m=>lastPt(m.id)).filter(Boolean).map(x=>x.d).sort().pop();
 const cols=Math.min(ms.length,3),fk=ms[0].f,md=mdk(g.k),a=pstart(md),E=Math.min(TD()+1,cov(g.k));
 let cmp='';if(E>a){const pa=pstart(md,1),c=grp(g.k,a,E),p=grp(g.k,pa,pa+(E-a));if(c!==null&&p)cmp=`<div class="cmp">bis ${dsh(E-1)}: ${pc(c,p)} ggü. Vorjahr</div>`}
@@ -161,68 +242,151 @@ return `<h1>Neue Ablesung</h1>
 ${ms.map(m=>{const l=lastPt(m.id);return `<label class="f">${m.s}<input inputmode="decimal" autocomplete="off" data-m="${m.id}" placeholder="${l?'zuletzt '+fm(l.v,m.d):'Zählerstand'}"></label>`}).join('')}
 <button class="btn" data-a="save">Speichern</button>`}
 
+function vList(ms){const it=[...R.filter(x=>ms.some(m=>m.id===x.m)).map(r=>({...r,k:'r'})),...S.sw.filter(s=>ms.some(m=>m.id===s.m)).map(s=>({...s,k:'sw'}))];
+if(!it.length)return '<section class="card"><div class="sub">Noch keine Ablesungen. Trage unter „Erfassen“ den ersten Zählerstand ein.</div></section>';
+const dates=[...new Set(it.map(x=>x.d))].sort().reverse(),idx=id=>M.findIndex(m=>m.id===id);
+return `<section class="card" style="gap:0"><div class="sub" style="padding-bottom:10px">${R.filter(x=>ms.some(m=>m.id===x.m)).length} Ablesungen · ✎ zum Korrigieren</div>`+dates.slice(0,lim).map(d=>`<div class="dh">${dl(d)}</div>`+it.filter(x=>x.d===d).sort((p,q)=>idx(p.m)-idx(q.m)||(p.k==='sw'?-1:1)).map(r=>{const m=MM(r.m);
+if(r.k==='sw')return `<div class="li"><span class="nm">${m.s}<br><span class="sub">Zählerwechsel: alt ${fm(r.a,m.d)} → neu ${fm(r.n,m.d)}</span></span><button data-a="delsw" data-v="${esc(r.id)}" aria-label="Zählerwechsel löschen">×</button></div>`;
+if(ed===r.id)return `<div class="li"><span class="nm">${m.s}</span><input id="edv" inputmode="decimal" autocomplete="off" value="${String(r.v).replace('.',',')}"><button data-a="eds" data-v="${r.id}" aria-label="Speichern">✓</button><button data-a="edx" aria-label="Abbrechen">×</button></div>`;
+return `<div class="li"><span class="nm">${m.s}</span><span><b>${fm(r.v,m.d)}</b> ${m.u}</span><button data-a="ed" data-v="${r.id}" aria-label="Bearbeiten">✎</button><button data-a="del" data-v="${r.id}" aria-label="Ablesung löschen">×</button></div>`}).join('')).join('')+
+(dates.length>lim?'<button class="btn alt" style="margin-top:12px;background:var(--bg)" data-a="more">Ältere anzeigen</button>':'')+'</section>'}
+
+function vProg(k){const P=prog(k);if(!P)return'';const u=unit(k),dc=cdec(k),fv=v=>fm(v,dc)+' '+u;
+let h=`<section class="card"><div class="row"><span class="lab" style="color:var(${V.find(x=>x.k===k).c})">Prognose</span><span class="sub">Abrechnung ${dsh(P.a)}–${dsh(P.b-1)}</span></div>`;
+if(P.none)return h+'<div class="sub">Noch keine Ablesungen in diesem Zeitraum.</div></section>';
+const rows=[['Bisher (bis '+dsh(P.E-1)+')',fv(P.c)],['<b>Prognose Zeitraum</b>',fv(P.p)]];
+if(P.prev)rows.push(['Vorjahr','<span class="sub" style="font-weight:400">'+pc(P.p,P.prev)+'</span>  '+fv(P.prev)]);
+let note='';
+if(k==='strom'){const C=sCost(P);if(C){rows.push(null,['Kosten bisher',fe(C.bis)],['<b>Kosten Prognose</b>',fe(C.tot)]);
+if(S.absch.length)rows.push(['Abschläge ('+C.n+' Monate)',fe(C.ab)],['<span class="sub">davon bisher gezahlt</span>','<span class="sub">'+fe(C.abB)+'</span>']);
+if(C.bo)rows.push(['Bonus','− '+fe(C.bo)]);
+if(S.absch.length)rows.push([C.saldo>=0?'<b>Erwartete Nachzahlung</b>':'<b>Erwartetes Guthaben</b>',fe(Math.abs(C.saldo))]);
+if(C.emp!==null)rows.push(['Passender Abschlag',fe(C.emp)+'/Monat'])}
+else note='Strompreise in den Einstellungen eintragen, um die Kosten zu sehen.'}
+else{const C=hwCost(k,P);if(C){rows.push(null,['<b>Kosten Prognose</b>',fe(C.tot)]);note='Mit den Preisen der Abrechnung '+plab(S.abrWH,mdn(+C.y,S.abrWH))+'. Die tatsächlichen Preise stehen erst mit der nächsten Abrechnung fest.'+(C.gmiss?' Für die Grundkosten fehlt die Wohnfläche.':'');
+if(S.vzHW!==''){const cs=['heizung','warm','kalt'].map(x=>hwCost(x,x===k?P:prog(x)));if(cs.every(Boolean)){const tot=cs.reduce((t,x)=>t+x.tot,0),vz=S.vzHW*months(P.a,P.b).length;
+rows.push(null,['Heizung &amp; Wasser gesamt',fe(tot)],['Vorauszahlung',fe(vz)],[tot-vz>=0?'<b>Erwartete Nachzahlung</b>':'<b>Erwartetes Guthaben</b>',fe(Math.abs(tot-vz))])}}}
+else note='Preise aus der Abrechnung in den Einstellungen eintragen, um die Kosten zu sehen.'}
+h+='<div class="kv">'+rows.map(r=>r?`<span>${r[0]}</span><span class="v">${r[1]}</span>`:'<div class="hr"></div>').join('')+'</div>';
+h+=`<div class="sub">Grundlage: ${P.days} Tage Ablesungen · ${P.how}${P.s>P.a?' · Zeit vor dem '+dsh(P.s)+' geschätzt':''}${P.days<30?' · noch sehr grob':''}</div>`;
+return h+(note?`<div class="sub">${note}</div>`:'')+'</section>'}
+
 function vHist(){const ms=M.filter(m=>m.v===vc),g=V.find(x=>x.k===vc),md=mdk(vc),P=[];
+let h=`<h1>Verlauf</h1><div class="seg">${V.map(x=>`<button class="${x.k===vc?'on':''}" data-a="vc" data-v="${x.k}">${x.t}</button>`).join('')}</div>
+<div class="seg">${[['m','Monate'],['y','Jahre'],['a','Abrechnung'],['l','Ablesungen']].map(([k,n])=>`<button class="${vm===k?'on':''}" data-a="vm" data-v="${k}">${n}</button>`).join('')}</div>`;
+if(vm==='l')return h+vList(ms);
 if(vm==='m')for(let i=5;i>=0;i--){const d=new Date(Y,Mo-i,1),y=d.getFullYear(),m=d.getMonth();P.push({l:mon(y,m),a:D(y,m),b:D(y,m+1),pa:D(y-1,m),pb:D(y-1,m+1)})}
 else if(vm==='y')for(let i=3;i>=0;i--)P.push({l:''+(Y-i),a:D(Y-i,0),b:D(Y-i+1,0)});
-else for(let i=3;i>=0;i--){const a=pstart(md,i),y=new Date(a*864e5).getUTCFullYear();P.push({l:md==='01-01'?''+y:(''+y).slice(2)+'/'+(''+(y+1)).slice(2),a,b:pend(md,a)})}
+else for(let i=3;i>=0;i--){const a=pstart(md,i);P.push({l:plab(md,a),a,b:pend(md,a)})}
 const data=P.map(p=>({...p,v:ms.map(m=>(use(m.id,p.a,p.b)||0)*fak(m.id)),t:grp(vc,p.a,p.b),p:p.pa===undefined?undefined:grp(vc,p.pa,p.pb)}));
 const mx=Math.max(1e-9,...data.map(d=>d.v.reduce((a,b)=>a+b,0)));
-const rows=[...R.filter(x=>ms.some(m=>m.id===x.m)).map(r=>({...r,k:'r'})),...S.sw.filter(s=>ms.some(m=>m.id===s.m)).map(s=>({...s,k:'sw'}))].sort((a,b)=>a.d<b.d?1:a.d>b.d?-1:a.k==='sw'?1:-1).slice(0,30);
 const gew=vc==='heizung'&&ms.some(m=>fak(m.id)!==1);
-return `<h1>Verlauf</h1><div class="seg">${V.map(x=>`<button class="${x.k===vc?'on':''}" data-a="vc" data-v="${x.k}">${x.t}</button>`).join('')}</div>
-<div class="seg">${[['m','Monate'],['y','Jahre'],['a','Abrechnung']].map(([k,n])=>`<button class="${vm===k?'on':''}" data-a="vm" data-v="${k}">${n}</button>`).join('')}</div>
-<section class="card"><div class="row"><span class="lab" style="color:var(${g.c})">${g.n}</span><span class="sub">Verbrauch in ${unit(vc)}${gew?' (gewichtet)':''}</span></div>
-<div class="bars">${data.map(d=>`<div class="bc"><div class="bv">${d.t===null?'–':fm(d.t,cdec(vc))}</div><div class="bb">${d.v.map((v,i)=>`<div style="height:${v/mx*100}%;background:${PAL[i%6]}"></div>`).join('')}</div><span class="sub">${d.l}</span>${d.p!==undefined?`<span class="vj">VJ ${d.p===null?'–':fm(d.p,cdec(vc))}</span>`:''}</div>`).join('')}</div>
+return h+`<section class="card"><div class="row"><span class="lab" style="color:var(${g.c})">${g.n}</span><span class="sub">Verbrauch in ${unit(vc)}${gew?' (gewichtet)':''}</span></div>
+<div class="bars">${data.map(d=>`<div class="bc"><div class="bv">${d.t===null?'–':fm(d.t,cdec(vc))}</div><div class="bb">${d.v.map((v,i)=>v>0?`<div style="height:${v/mx*100}%;background:${ms[i].c}"></div>`:'').reverse().join('')}</div><span class="sub">${d.l}</span>${d.p!==undefined?`<span class="vj">VJ ${d.p===null?'–':fm(d.p,cdec(vc))}</span>`:''}</div>`).join('')}</div>
 ${vm==='m'?'<div class="sub">VJ = gleicher Monat im Vorjahr</div>':vm==='a'?`<div class="sub">Abrechnungszeitraum ab ${dl('2000-'+md).slice(0,6)}</div>`:''}
-<div class="leg">${ms.length>1?ms.map((m,i)=>`<span><span style="color:${PAL[i%6]}">■</span> ${m.s}</span>`).join(''):''}</div></section>
-<section class="card" style="gap:0"><div class="sub" style="padding-bottom:8px">Letzte Ablesungen</div>${rows.length?rows.map(r=>{const m=MM(r.m);
-return r.k==='sw'?`<div class="li"><span>${dl(r.d)}</span><span style="flex:1;text-align:right">${ms.length>1?m.s+' · ':''}Zählerwechsel<br><span class="sub">alt ${fm(r.a,m.d)} → neu ${fm(r.n,m.d)}</span></span><button data-a="delsw" data-v="${esc(r.id)}" aria-label="Zählerwechsel löschen">×</button></div>`
-:`<div class="li"><span>${dl(r.d)}</span><span style="flex:1;text-align:right">${ms.length>1?m.s+' · ':''}<b>${fm(r.v,m.d)}</b> ${m.u}</span><button data-a="del" data-v="${r.id}" aria-label="Ablesung löschen">×</button></div>`}).join(''):'<div class="sub">Noch keine Ablesungen. Trage unter „Erfassen“ den ersten Zählerstand ein.</div>'}</section>`}
+${ms.length>1?`<div class="leg">${ms.map(m=>`<span><span class="sw" style="background:${m.c}"></span>${m.s}</span>`).join('')}</div>`:''}</section>`+vProg(vc)}
 
-function vSet(){const lb=localStorage.getItem('lb'),old=!lb||(Date.now()-new Date(lb))>30*864e5;
-const perm='Notification' in window?Notification.permission:'na';
-const bdg=perm==='na'?'<div class="sub" style="margin:0 4px">Die Zahl am App-Symbol funktioniert nur in der installierten App (Home-Bildschirm).</div>'
-:perm==='granted'?'<div class="sub" style="margin:0 4px">Zahl am App-Symbol ist aktiv. Sie zeigt, wie viele Bereiche fällig sind, und wird beim Öffnen der App aktualisiert.</div>'
-:perm==='denied'?'<div class="sub" style="margin:0 4px">Mitteilungen sind blockiert. Erlauben unter iPhone-Einstellungen → Mitteilungen → Zähler.</div>'
-:'<button class="btn alt" data-a="perm">Zahl am App-Symbol aktivieren</button><div class="sub" style="margin:0 4px">iOS fragt dafür nach der Erlaubnis für Mitteilungen. Die App verschickt selbst keine Mitteilungen.</div>';
-return `<h1>Einstellungen</h1>
-<h2>Einzug</h2>
-<label class="f">Einzugsdatum<input type="date" data-s="einzug" value="${S.einzug}" max="${today()}"></label>
+/* ---------- Einstellungen ---------- */
+const sec=(k,t,inner)=>`<details class="sec" data-k="${k}"${OPEN.has(k)?' open':''}><summary>${t}</summary><div class="in">${inner}</div></details>`;
+const nv=v=>v===''||v===undefined?'':String(v).replace('.',',');
+const nf=(path,label,val,ph='')=>`<div class="mr"><span class="nm">${label}</span><input inputmode="decimal" autocomplete="off" data-s="${path}" value="${nv(val)}" placeholder="${ph}"></div>`;
+const hint=t=>`<div class="sub" style="margin:0 2px">${t}</div>`;
+const dlb=(l,id)=>`<button data-a="dl" data-v="${l}:${esc(id)}" aria-label="Eintrag löschen">×</button>`;
+
+function secAllg(){const perm='Notification' in window?Notification.permission:'na';
+const bdg=perm==='na'?hint('Die Zahl am App-Symbol funktioniert nur in der installierten App (Home-Bildschirm).')
+:perm==='granted'?hint('Zahl am App-Symbol ist aktiv. Sie zeigt, wie viele Bereiche fällig sind, und wird beim Öffnen der App aktualisiert.')
+:perm==='denied'?hint('Mitteilungen sind blockiert. Erlauben unter iPhone-Einstellungen → Mitteilungen → Zähler.')
+:'<button class="btn alt" data-a="perm">Zahl am App-Symbol aktivieren</button>'+hint('iOS fragt dafür nach der Erlaubnis für Mitteilungen. Die App verschickt selbst keine Mitteilungen.');
+return sec('allg','Allgemein',`<label class="f">Einzugsdatum<input type="date" data-s="einzug" value="${S.einzug}" max="${today()}"></label>
 ${S.einzug?`<button class="btn alt" data-a="einz">Anfangsstände zum ${dl(S.einzug)} erfassen</button>`:''}
-<div class="sub" style="margin:0 4px">Verbrauch vor dem Einzug wird nicht mitgerechnet. Trage am Einzugstag die Stände aus dem Übergabeprotokoll ein.</div>
-<h2>Erinnerung</h2>
-<div class="seg">${[[14,'Alle 2 Wochen'],[30,'Monatlich'],[0,'Aus']].map(([v,n])=>`<button class="${S.iv===v?'on':''}" data-a="iv" data-v="${v}">${n}</button>`).join('')}</div>
-${bdg}
-<h2>Abrechnungszeitraum</h2>
+${hint('Verbrauch vor dem Einzug wird nicht mitgerechnet. Trage am Einzugstag die Stände aus dem Übergabeprotokoll ein.')}
+<label class="f">Wohnfläche (m²)<input inputmode="decimal" autocomplete="off" data-s="flaeche" value="${nv(S.flaeche)}" placeholder="für Grundkosten"></label>
+<div class="lab" style="margin-top:8px">Erinnerung</div>
+<div class="seg">${[[14,'Alle 2 Wochen'],[30,'Monatlich'],[0,'Aus']].map(([v,n])=>`<button class="${S.iv===v?'on':''}" data-a="iv" data-v="${v}">${n}</button>`).join('')}</div>${bdg}
+<div class="lab" style="margin-top:8px">Abrechnungszeitraum</div>
 <label class="f">Wasser &amp; Heizung ab<input type="date" data-s="abrWH" value="${Y}-${S.abrWH}"></label>
 <label class="f">Strom ab<input type="date" data-s="abrS" value="${Y}-${S.abrS}"></label>
-<div class="sub" style="margin:0 4px">Es zählen nur Tag und Monat. Zum Beginn von Wasser &amp; Heizung werden die Heizkostenverteiler auf 0 gesetzt.</div>
-<h2>Zähler</h2>
-${F.map(f=>`<section class="card" style="gap:0"><div class="row" style="padding-bottom:8px"><span class="lab" style="color:var(${f.c})">${f.n}</span>${f.k==='heizung'?'<span class="sub">Nr. · Faktor</span>':'<span class="sub">Zählernummer</span>'}</div>
-${M.filter(m=>m.f===f.k).map(m=>{const lp=lastPt(m.id);return `<div class="mr"><span class="nm">${m.s}</span><input data-s="nr.${m.id}" value="${esc(S.nr[m.id]||'')}" placeholder="Nr." autocomplete="off">${f.k==='heizung'?`<input class="fk" inputmode="decimal" data-s="fak.${m.id}" value="${S.fak[m.id]?String(S.fak[m.id]).replace('.',','):''}" placeholder="1">`:''}<button class="sbtn" data-a="sw" data-v="${m.id}">Wechsel</button></div>
+${hint('Es zählen nur Tag und Monat. Zum Beginn von Wasser &amp; Heizung werden die Heizkostenverteiler auf 0 gesetzt.')}`)}
+
+function secZ(){return sec('zaehler','Zähler',F.map(f=>`<div class="blk"><div class="row"><span class="lab" style="color:var(${f.c})">${f.n}</span><span class="sub">${f.k==='heizung'?'Nr. · Faktor':'Zählernummer'}</span></div>
+${M.filter(m=>m.f===f.k).map(m=>{const lp2=lastPt(m.id);return `<div class="mr"><span class="nm">${m.s}</span><input data-s="nr.${m.id}" value="${esc(S.nr[m.id]||'')}" placeholder="Nr." autocomplete="off">${f.k==='heizung'?`<input class="fk" inputmode="decimal" data-s="fak.${m.id}" value="${S.fak[m.id]?nv(S.fak[m.id]):''}" placeholder="1">`:''}<button class="sbtn" data-a="sw" data-v="${m.id}">Wechsel</button></div>
 ${so===m.id?`<div class="swf"><b>Zählerwechsel ${m.n}</b>
 <label class="f">Datum<input type="date" id="swd" value="${today()}" max="${today()}"></label>
-<label class="f">Endstand alt<input id="swa" inputmode="decimal" autocomplete="off" placeholder="${lp?'zuletzt '+fm(lp.v,m.d):'Zählerstand'}"></label>
+<label class="f">Endstand alt<input id="swa" inputmode="decimal" autocomplete="off" placeholder="${lp2?'zuletzt '+fm(lp2.v,m.d):'Zählerstand'}"></label>
 <label class="f">Anfangsstand neu<input id="swn" inputmode="decimal" autocomplete="off" placeholder="0"></label>
 <label class="f">Neue Zählernr.<input id="swr" autocomplete="off" placeholder="optional"></label>
-<div class="two"><button class="btn alt" data-a="swx">Abbrechen</button><button class="btn" data-a="sws" data-v="${m.id}">Speichern</button></div></div>`:''}`}).join('')}
-${f.k==='heizung'?'<div class="sub" style="padding-top:8px">Faktor aus der Heizkostenabrechnung (leer = 1). Der Verbrauch wird damit gewichtet, die Zählerstände bleiben unverändert.</div>':''}</section>`).join('')}
-<h2>Backup</h2>
-<section class="card"><div><b>${R.length}</b> Ablesungen gespeichert${S.sw.length?`, <b>${S.sw.length}</b> Zählerwechsel`:''}</div><div class="sub">Letztes Backup: ${lb?dl(lb.slice(0,10)):'noch nie'}${old?' – Zeit für eine Sicherung.':''}</div><div class="sub">Die Daten liegen nur auf diesem iPhone. Speichere die Sicherung über das Teilen-Menü in „Dateien“ (iCloud Drive). Die Sicherung enthält auch alle Einstellungen.</div></section>
-<button class="btn" data-a="expJ">Sicherung exportieren (JSON)</button><button class="btn alt" data-a="expC">Als CSV exportieren</button><button class="btn alt" data-a="imp">Sicherung importieren</button>
-<div class="sub" style="text-align:center;margin-top:8px">Zähler · Version ${VERSION}</div>`}
+<div class="two"><button class="btn alt" style="background:var(--card)" data-a="swx">Abbrechen</button><button class="btn" data-a="sws" data-v="${m.id}">Speichern</button></div></div>`:''}`}).join('')}
+${f.k==='heizung'?'<div class="sub" style="padding-top:8px">Faktor aus der Heizkostenabrechnung (leer = 1). Der Verbrauch wird damit gewichtet, die Zählerstände bleiben unverändert.</div>':''}</div>`).join(''))}
+
+function secStrom(){const T=[...S.tarif].sort((p,q)=>p.ab<q.ab?1:-1),A2=[...S.absch].sort((p,q)=>p.ab<q.ab?1:-1),B=[...S.bonus].sort((p,q)=>p.d<q.d?1:-1);
+return sec('strom','Stromkosten',`${hint('Bruttopreise von der letzten Rechnung. Ändert sich ein Preis, einen neuen Eintrag mit dem Datum anlegen. Ältere Zeiträume rechnen weiter mit dem alten Preis.')}
+<div class="blk"><div class="lab">Preise</div>${T.map(t=>`<div class="li"><span class="nm">ab ${dl(t.ab)}</span><span>${fm(t.ap,2)} ct/kWh · ${fe(t.gp)}/Jahr</span>${dlb('tarif',t.id)}</div>`).join('')||'<div class="sub">Noch kein Preis eingetragen.</div>'}</div>
+<label class="f">Gültig ab<input type="date" id="t_d" value="${T.length?today():S.einzug||today()}"></label>
+<label class="f">Arbeitspreis (ct/kWh)<input id="t_ap" inputmode="decimal" autocomplete="off" placeholder="z. B. 32,5"></label>
+<label class="f">Grundpreis (€/Jahr)<input id="t_gp" inputmode="decimal" autocomplete="off" placeholder="z. B. 150"></label>
+<button class="btn alt" data-a="addT">Preis hinzufügen</button>
+<div class="blk"><div class="lab">Abschläge</div>${A2.map(t=>`<div class="li"><span class="nm">ab ${ml(t.ab)}</span><span>${t.eur?fe(t.eur)+'/Monat':'ausgesetzt'}</span>${dlb('absch',t.id)}</div>`).join('')||'<div class="sub">Noch kein Abschlag eingetragen.</div>'}</div>
+<label class="f">Ab Monat<input type="month" id="a_m" value="${today().slice(0,7)}"></label>
+<label class="f">Betrag (€/Monat)<input id="a_e" inputmode="decimal" autocomplete="off" placeholder="z. B. 85"></label>
+<button class="btn alt" data-a="addA">Abschlag hinzufügen</button>
+${hint('Fällt ein Monat aus (z. B. wegen der Jahresabrechnung), einen Eintrag mit 0 € für diesen Monat anlegen und ab dem Folgemonat wieder den normalen Betrag.')}
+<div class="blk"><div class="lab">Bonus</div>${B.map(t=>`<div class="li"><span class="nm">${dl(t.d)}</span><span>${fe(t.eur)}</span>${dlb('bonus',t.id)}</div>`).join('')||'<div class="sub">Kein Bonus eingetragen.</div>'}</div>
+<label class="f">Datum<input type="date" id="b_d" value="${today()}"></label>
+<label class="f">Betrag (€)<input id="b_e" inputmode="decimal" autocomplete="off" placeholder="z. B. 50"></label>
+<button class="btn alt" data-a="addB">Bonus hinzufügen</button>
+${hint('Ein Bonus wird in dem Abrechnungszeitraum angerechnet, in dem sein Datum liegt.')}`)}
+
+function ayears(){const md=S.abrWH,s=new Set([1,2,3].map(k=>String(yr(pstart(md,k)))));Object.keys(S.abr).forEach(y=>s.add(y));return [...s].sort().reverse().slice(0,6)}
+function own(id,y){const a=mdn(+y,S.abrWH),b=pend(S.abrWH,a);const iv=IV(id);if(!iv.length||iv[0].x>Math.max(a,E0()-1)+1||iv.at(-1).y<b)return null;return use(id,a,b)*fak(id)}
+function abrRes(y){const o=S.abr[y]||{},w=o.w||{},out=[];
+for(const [k,n,p,g,b] of [['heizung','Heizung','pH','gH','bH'],['warm','Warmwasser','pWW','gWW','bWW'],['kalt','Kaltwasser','pKW',null,'bKW']]){
+const ms=M.filter(m=>m.v===k),en=ms.filter(m=>fin(w[m.id])),ud=k==='heizung'?1:2,un=unit(k);if(!en.length&&!fin(o[p]))continue;const L=[];
+const uA=en.reduce((t,m)=>t+w[m.id],0),ow=en.map(m=>own(m.id,y)),okO=en.length&&ow.every(x=>x!==null),uO=okO?ow.reduce((t,x)=>t+x,0):null;
+if(en.length){if(okO){L.push(`Laut Abrechnung <b>${fm(uA,ud)} ${un}</b> · eigene Ablesung <b>${fm(uO,ud)} ${un}</b>${uO>0?' ('+pc(uA,uO)+')':''}`);
+const bad=en.filter((m,i)=>Math.abs(w[m.id]-ow[i])>Math.max(.05*ow[i],k==='heizung'?2:.1));
+if(bad.length)L.push('<span class="warn">Auffällig: '+bad.map(m=>`${m.s} (Abrechnung ${fm(w[m.id],ud)} · eigene ${fm(own(m.id,y),ud)})`).join(', ')+'</span>');
+else L.push('✓ Verbrauch passt zu deinen Ablesungen');}
+else L.push('<span class="sub">Deine Ablesungen decken diesen Zeitraum nicht vollständig ab, ein Abgleich ist nicht möglich.</span>')}
+if(fin(o[p])){const gr=g&&fin(o[g])?(S.flaeche?o[g]*S.flaeche:null):0;
+if(gr===null)L.push('<span class="sub">Für die Grundkosten fehlt die Wohnfläche (unter Allgemein).</span>');
+else{if(en.length){const calc=uA*o[p]+gr;L.push(`Nachgerechnet: ${fm(uA,ud)} × ${fe(o[p])}${gr?' + '+fm(S.flaeche,1)+' m² × '+fe(o[g]):''} = <b>${fe(calc)}</b>`+(fin(o[b])?`<br>Laut Abrechnung ${fe(o[b])} ${Math.abs(calc-o[b])<1?'✓':'<span class="warn">→ Differenz '+(calc-o[b]>0?'+':'−')+fe(Math.abs(calc-o[b]))+'</span>'}`:''))}
+if(uO!==null)L.push(`Mit deinen Ablesungen wären es ${fe(uO*o[p]+gr)}`)}}
+if(!L.length)L.push('<span class="sub">Verbrauch laut Abrechnung eintragen, dann wird nachgerechnet.</span>');
+out.push(`<div class="res"><span class="lab" style="color:var(${V.find(x=>x.k===k).c})">${n}</span>${L.map(x=>`<div>${x}</div>`).join('')}</div>`)}
+return out.join('')||hint('Trage die Werte aus deiner Abrechnung ein. Hier erscheint dann der Abgleich mit deinen Ablesungen.')}
+function secAbr(){const ys=ayears();if(!ay||!ys.includes(ay))ay=ys.find(y=>S.abr[y])||ys[0];const o=S.abr[ay]||{},w=o.w||{},md=S.abrWH;
+const ownT=m=>{const x=own(m.id,ay);return x===null?'':`<br><span class="sub">eigene: ${fm(x,m.f==='heizung'?1:2)}</span>`};
+const blk=(k,n,c,inner)=>`<div class="blk"><div class="lab" style="color:var(${c})">${n}</div>${inner}</div>`;
+return sec('abr','Abrechnung Heizung &amp; Wasser',`${hint('Werte aus deiner Heiz- und Wasserkostenabrechnung. Die App prüft damit die Verbrauchswerte und die Rechnung. Die Preise der neuesten Abrechnung nutzt sie für die Kostenprognose im Verlauf.')}
+<label class="f">Vorauszahlung (€/Monat)<input inputmode="decimal" autocomplete="off" data-s="vzHW" value="${nv(S.vzHW)}" placeholder="nur Heizung &amp; Wasser"></label>
+${hint('Optional: dein monatlicher Anteil für Heizung und Wasser an der Nebenkostenvorauszahlung. Dann zeigt die Prognose eine erwartete Nachzahlung oder ein Guthaben.')}
+<div class="lab" style="margin-top:8px">Abrechnung für</div>
+<div class="seg">${ys.slice(0,4).map(y=>`<button class="${y===ay?'on':''}" data-a="ay" data-v="${y}">${plab(md,mdn(+y,md))}</button>`).join('')}</div>
+${blk('heizung','Heizung · Einheiten laut Abrechnung','--c2',M.filter(m=>m.f==='heizung').map(m=>nf(`abr.${ay}.w.${m.id}`,m.s+ownT(m),w[m.id],'Einh.')).join('')+nf(`abr.${ay}.pH`,'Preis je Einheit (€)',o.pH)+nf(`abr.${ay}.gH`,'Grundkosten (€/m²)',o.gH)+nf(`abr.${ay}.bH`,'Betrag laut Abrechnung (€)',o.bH))}
+${blk('warm','Warmwasser','--c3',nf(`abr.${ay}.w.ww`,'m³ laut Abrechnung'+ownT(MM('ww')),w.ww,'m³')+nf(`abr.${ay}.pWW`,'Preis je m³ (€)',o.pWW)+nf(`abr.${ay}.gWW`,'Grundkosten (€/m²)',o.gWW)+nf(`abr.${ay}.bWW`,'Betrag laut Abrechnung (€)',o.bWW))}
+${blk('kalt','Kaltwasser inkl. Abwasser','--c4',M.filter(m=>m.v==='kalt').map(m=>nf(`abr.${ay}.w.${m.id}`,m.s.replace('Kaltwasser ','')+' (m³)'+ownT(m),w[m.id],'m³')).join('')+nf(`abr.${ay}.pKW`,'Preis je m³ (€)',o.pKW)+nf(`abr.${ay}.bKW`,'Betrag laut Abrechnung (€)',o.bKW))}
+${hint('Einheiten so eintragen, wie sie in der Abrechnung stehen, also bereits mit Faktor bewertet. Leere Felder werden übersprungen.')}
+<div id="abrres" style="display:flex;flex-direction:column;gap:8px">${abrRes(ay)}</div>`)}
+
+function secBak(){const lb=localStorage.getItem('lb'),old=!lb||(Date.now()-new Date(lb))>30*864e5;
+return sec('bak','Backup',`<div><b>${R.length}</b> Ablesungen gespeichert${S.sw.length?`, <b>${S.sw.length}</b> Zählerwechsel`:''}</div><div class="sub">Letztes Backup: ${lb?dl(lb.slice(0,10)):'noch nie'}${old?' – Zeit für eine Sicherung.':''}</div>
+${hint('Die Daten liegen nur auf diesem iPhone. Speichere die Sicherung über das Teilen-Menü in „Dateien“ (iCloud Drive). Sie enthält alle Ablesungen und Einstellungen, auch Preise und Abrechnungen.')}
+<button class="btn" data-a="expJ">Sicherung exportieren (JSON)</button><button class="btn alt" data-a="expC">Als CSV exportieren</button><button class="btn alt" data-a="imp">Sicherung importieren</button>`)}
+function vSet(){return `<h1>Einstellungen</h1>${secAllg()}${secZ()}${secStrom()}${secAbr()}${secBak()}<div class="sub" style="text-align:center;margin-top:8px">Zähler · Version ${VERSION}</div>`}
 
 /* ---------- Steuerung ---------- */
 const badge=n=>{try{if(n&&navigator.setAppBadge)navigator.setAppBadge(n).catch(()=>{});else if(navigator.clearAppBadge)navigator.clearAppBadge().catch(()=>{})}catch(e){}};
 function render(){$('#app').innerHTML=[vHome,vForm,vHist,vSet][tab]();document.querySelectorAll('nav button').forEach((b,i)=>b.classList.toggle('on',i===tab));
 const n=due().length;$('nav button[data-v="1"]').classList.toggle('dot',n>0);badge(n)}
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>e.classList.remove('on'),2200)}
-const num=s=>{s=s.trim().replace(/\s/g,'');if(s.includes(','))s=s.replace(/\./g,'').replace(',','.');const n=Number(s);return s&&isFinite(n)?n:NaN};
+const num=s=>{s=String(s).trim().replace(/\s/g,'').replace('€','');if(s.includes(','))s=s.replace(/\./g,'').replace(',','.');const n=Number(s);return s&&isFinite(n)?n:NaN};
 async function save(){const d=$('#date').value;fd=d;if(!d)return toast('Bitte ein Datum wählen');if(S.einzug&&d<S.einzug)return toast('Datum liegt vor dem Einzug');const todo=[];
 for(const i of document.querySelectorAll('input[data-m]')){if(!i.value.trim())continue;const m=MM(i.dataset.m),v=num(i.value);
 if(isNaN(v)||v<0)return toast('Ungültiger Wert bei '+m.s);
 const p=prevAt(m.id,d);
 if(p&&v<p.v&&!confirm(m.s+': Der Wert ist niedriger als der vorherige Stand'+(p.d?' vom '+dl(p.d):'')+' ('+fm(p.v,m.d)+'). Trotzdem speichern?'))return;
+const w=plaus(m.id,d,v);if(w&&!confirm(w+' Trotzdem speichern?'))return;
 todo.push([m,v])}
 if(!todo.length)return toast('Keine Werte eingetragen');
 for(const [m,v] of todo){for(const o of R.filter(x=>x.m===m.id&&x.d===d))await pr(st('readwrite').delete(o.id));await pr(st('readwrite').add({m:m.id,d,v}))}
@@ -231,43 +395,66 @@ async function out(name,type,text){const f=new File([text],name,{type});if(navig
 const stamp=()=>new Date().toISOString();
 const cn=v=>String(v).replace('.',',');
 const A={
-tab:v=>{tab=+v;so=null;render();scrollTo(0,0)},
-go:v=>{fc=v;A.tab(1)},fc:v=>{fc=v;render()},vc:v=>{vc=v;render()},vm:v=>{vm=v;render()},
+tab:v=>{tab=+v;so=null;ed=null;render();scrollTo(0,0)},
+bak:()=>{OPEN.add('bak');A.tab(3);setTimeout(()=>{const x=$('details[data-k="bak"]');if(x&&x.scrollIntoView)x.scrollIntoView()},50)},
+go:v=>{fc=v;A.tab(1)},fc:v=>{fc=v;render()},vc:v=>{vc=v;ed=null;lim=40;render()},vm:v=>{vm=v;ed=null;render()},
 stich:v=>{fd=v;render()},
 einz:()=>{fd=S.einzug;fc='strom';A.tab(1)},
 save,
+more:()=>{lim+=40;render()},
+ed:v=>{ed=+v;render();const i=$('#edv');if(i)i.focus()},edx:()=>{ed=null;render()},
+async eds(v){const r=R.find(x=>x.id===+v);if(!r)return;const m=MM(r.m),val=num($('#edv').value);if(isNaN(val)||val<0)return toast('Ungültiger Wert');
+const p=prevAt(r.m,r.d);if(p&&val<p.v&&!confirm(m.s+': Der Wert ist niedriger als der vorherige Stand ('+fm(p.v,m.d)+'). Trotzdem speichern?'))return;
+const w=plaus(r.m,r.d,val);if(w&&!confirm(w+' Trotzdem speichern?'))return;
+await pr(st('readwrite').put({id:r.id,m:r.m,d:r.d,v:val}));ed=null;await load();render();toast('Ablesung geändert')},
 async iv(v){S.iv=+v;await saveS();render()},
 async perm(){try{await Notification.requestPermission()}catch(e){}render()},
 sw:v=>{so=so===v?null:v;render()},swx:()=>{so=null;render()},
-async sws(id){const m=MM(id),d=$('#swd').value,a=num($('#swa').value),nv=$('#swn').value.trim()?num($('#swn').value):0,nr=$('#swr').value.trim();
-if(!d)return toast('Bitte ein Datum wählen');if(isNaN(a)||a<0)return toast('Bitte den Endstand des alten Zählers eintragen');if(isNaN(nv)||nv<0)return toast('Ungültiger Anfangsstand');
+async sws(id){const m=MM(id),d=$('#swd').value,a=num($('#swa').value),nv2=$('#swn').value.trim()?num($('#swn').value):0,nr=$('#swr').value.trim();
+if(!d)return toast('Bitte ein Datum wählen');if(isNaN(a)||a<0)return toast('Bitte den Endstand des alten Zählers eintragen');if(isNaN(nv2)||nv2<0)return toast('Ungültiger Anfangsstand');
 const p=prevAt(id,d);if(p&&a<p.v&&!confirm('Der Endstand ist niedriger als der vorherige Stand ('+fm(p.v,m.d)+'). Trotzdem speichern?'))return;
-S.sw.push({id:String(Date.now()),m:id,d,a,n:nv,nrAlt:S.nr[id]||'',nrNeu:nr});if(nr)S.nr[id]=nr;so=null;await saveS();render();toast('Zählerwechsel gespeichert')},
+S.sw.push({id:String(Date.now()),m:id,d,a,n:nv2,nrAlt:S.nr[id]||'',nrNeu:nr});if(nr)S.nr[id]=nr;so=null;await saveS();render();toast('Zählerwechsel gespeichert')},
 async delsw(v){const s=S.sw.find(x=>x.id===v);if(!s||!confirm('Zählerwechsel vom '+dl(s.d)+' löschen?'))return;
 if(s.nrNeu&&S.nr[s.m]===s.nrNeu){if(s.nrAlt)S.nr[s.m]=s.nrAlt;else delete S.nr[s.m]}S.sw=S.sw.filter(x=>x!==s);await saveS();render()},
-async del(v){const r=R.find(x=>x.id==v);if(r&&confirm('Ablesung vom '+dl(r.d)+' löschen?')){await pr(st('readwrite').delete(+v));await load();render()}},
-async expJ(){const {k,...s}=S;if(await out('zaehler-backup-'+today()+'.json','application/json',JSON.stringify({v:2,exported:stamp(),readings:R.map(({m,d,v})=>({m,d,v})),settings:s},null,1))){localStorage.setItem('lb',stamp());render()}},
+async del(v){const r=R.find(x=>x.id==v);if(r&&confirm('Ablesung vom '+dl(r.d)+' ('+MM(r.m).s+') löschen?')){await pr(st('readwrite').delete(+v));await load();render()}},
+async addT(){const d=$('#t_d').value,ap=num($('#t_ap').value),gp=$('#t_gp').value.trim()?num($('#t_gp').value):0;
+if(!d)return toast('Bitte ein Datum wählen');if(isNaN(ap)||ap<0)return toast('Bitte den Arbeitspreis eintragen');if(isNaN(gp)||gp<0)return toast('Ungültiger Grundpreis');
+if(ap>200&&!confirm('Arbeitspreis '+fm(ap,2)+' ct/kWh – stimmt das? (Eingabe in Cent, nicht Euro)'))return;
+S.tarif=S.tarif.filter(t=>t.ab!==d);S.tarif.push({id:nid(),ab:d,ap,gp});await saveS();render();toast('Preis gespeichert')},
+async addA(){const m=$('#a_m').value,e=num($('#a_e').value);if(!/^\d{4}-\d{2}$/.test(m))return toast('Bitte einen Monat wählen');if(isNaN(e)||e<0)return toast('Bitte einen Betrag eintragen (0 = ausgesetzt)');
+S.absch=S.absch.filter(t=>t.ab!==m);S.absch.push({id:nid(),ab:m,eur:e});await saveS();render();toast('Abschlag gespeichert')},
+async addB(){const d=$('#b_d').value,e=num($('#b_e').value);if(!d)return toast('Bitte ein Datum wählen');if(isNaN(e)||e<=0)return toast('Bitte einen Betrag eintragen');
+S.bonus.push({id:nid(),d,eur:e});await saveS();render();toast('Bonus gespeichert')},
+async dl(v){const i=v.indexOf(':'),l=v.slice(0,i),id=v.slice(i+1);if(!['tarif','absch','bonus'].includes(l)||!confirm('Eintrag löschen?'))return;S[l]=S[l].filter(x=>x.id!==id);await saveS();render()},
+ay:v=>{ay=v;render()},
+async expJ(){const {k,...s}=S;if(await out('zaehler-backup-'+today()+'.json','application/json',JSON.stringify({v:3,exported:stamp(),readings:R.map(({m,d,v})=>({m,d,v})),settings:s},null,1))){localStorage.setItem('lb',stamp());render()}},
 async expC(){const l=['Datum;Zähler;Zählernummer;Wert',...[...R].sort((a,b)=>a.d<b.d?-1:1).map(r=>{const m=MM(r.m);return r.d+';'+m.n+';'+(S.nr[r.m]||'')+';'+cn(r.v)}),
 ...[...S.sw].sort((a,b)=>a.d<b.d?-1:1).map(s=>s.d+';'+MM(s.m).n+' – Zählerwechsel (Endstand alt / Anfang neu);'+(s.nrAlt||'')+' / '+(s.nrNeu||'')+';'+cn(s.a)+' / '+cn(s.n))];
-await out('zaehler-'+today()+'.csv','text/csv','\ufeff'+l.join('\n'))},
+await out('zaehler-'+today()+'.csv','text/csv','﻿'+l.join('\n'))},
 imp:()=>$('#file').click()};
-document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(t)A[t.dataset.a](t.dataset.v)});
+document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(t&&A[t.dataset.a])A[t.dataset.a](t.dataset.v)});
 document.addEventListener('input',e=>{if(e.target.id==='date')fd=e.target.value});
-document.addEventListener('change',async e=>{const k=e.target.dataset.s;if(!k)return;const v=e.target.value.trim();
-if(k==='abrWH'||k==='abrS'){if(!v)return;S[k]=v.slice(5)}
-else if(k==='einzug')S.einzug=v;
+document.addEventListener('toggle',e=>{const k=e.target.dataset&&e.target.dataset.k;if(k)e.target.open?OPEN.add(k):OPEN.delete(k)},true);
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='edv'){e.preventDefault();A.eds(String(ed))}});
+document.addEventListener('change',async e=>{const k=e.target.dataset.s;if(!k)return;const v=e.target.value.trim();let rr=false;
+if(k==='abrWH'||k==='abrS'){if(!v)return;S[k]=v.slice(5);rr=true}
+else if(k==='einzug'){S.einzug=v;rr=true}
+else if(k==='flaeche'||k==='vzHW'){const n=num(v);if(v&&(isNaN(n)||n<0))return toast('Ungültiger Wert');S[k]=v?n:''}
+else if(k.startsWith('abr.')){const p=k.split('.'),y=p[1],n=num(v);if(v&&(isNaN(n)||n<0))return toast('Ungültiger Wert');
+const o=S.abr[y]||(S.abr[y]={});let t=o,key=p[2];if(p[2]==='w'){t=o.w||(o.w={});key=p[3]}
+if(v)t[key]=n;else delete t[key];if(o.w&&!Object.keys(o.w).length)delete o.w;if(!Object.keys(o).length)delete S.abr[y]}
 else{const [o,id]=k.split('.');if(o==='fak'){const n=num(v);if(v&&(isNaN(n)||n<=0))return toast('Ungültiger Faktor');if(v)S.fak[id]=n;else delete S.fak[id]}else{if(v)S.nr[id]=v;else delete S.nr[id]}}
-await saveS();if(k==='einzug'||k.startsWith('abr'))render();toast('Gespeichert')});
+await saveS();if(rr)render();else{const x=$('#abrres');if(x&&ay)x.innerHTML=abrRes(ay)}toast('Gespeichert')});
 $('#file').addEventListener('change',async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
 try{const j=JSON.parse(await f.text()),seen=new Map();
-(j.readings||[]).forEach(r=>{if(r&&M.some(m=>m.id===r.m)&&isD(r.d)&&r.v!==null&&r.v!==''&&isFinite(r.v))seen.set(r.m+'|'+r.d,{m:r.m,d:r.d,v:+r.v})});
+(j.readings||[]).forEach(r=>{if(r&&M.some(m=>m.id===r.m)&&isD(r.d)&&fin(r.v))seen.set(r.m+'|'+r.d,{m:r.m,d:r.d,v:+r.v})});
 const ok=[...seen.values()],hs=!!(j.settings&&typeof j.settings==='object');
 if(!ok.length&&!hs)throw 0;
 if(!confirm(ok.length+' Ablesungen'+(hs?' und die Einstellungen':'')+' importieren? Bestehende Einträge mit gleichem Zähler und Datum werden ersetzt.'+(hs?' Die aktuellen Einstellungen werden überschrieben.':'')))return;
 for(const r of ok){for(const o of R.filter(x=>x.m===r.m&&x.d===r.d))await pr(st('readwrite').delete(o.id));await pr(st('readwrite').add(r))}
 if(hs){S=fixS(j.settings);await saveS()}
 await load();render();toast(ok.length+' Ablesungen importiert')}catch(x){toast('Datei konnte nicht gelesen werden')}});
-document.addEventListener('visibilitychange',()=>{if(document.hidden)return;now=new Date();Y=now.getFullYear();Mo=now.getMonth();MEMO={};if(tab!==1)render();else badge(due().length)});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)return;now=new Date();Y=now.getFullYear();Mo=now.getMonth();MEMO={};if(tab===0||tab===2&&ed===null)render();else badge(due().length)});
 (async()=>{try{db=await idb();await load()}catch(e){alert('Speicher nicht verfügbar. Bitte nicht im privaten Modus öffnen.')}
 render();if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js',{updateViaCache:'none'})})();
